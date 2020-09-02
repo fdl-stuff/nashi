@@ -1,0 +1,191 @@
+<style>
+    /* mobile */
+    @media (max-width: 1000px) {
+        nav {
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav #dropdown-btn  {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav #dropdown-btn span {
+            width: 5rem;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 0.5rem;
+            border-color: var(--primary-color);
+            border-width: 0.2rem;
+            border-style: solid;
+            border-radius: 10px;
+            color: var(--fdl-secondary);
+            font-size: 1.5rem;
+            -webkit-user-select: none;       
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        nav .dropdown-inactive {
+            display: none;
+        }
+        nav .dropdown-content {
+            position: absolute;
+            width: auto;
+            border: var(--primary-color);
+            border-width: 0.2rem 0.1rem;
+            border-style: solid;
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--fdl-background);
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 14.5rem;
+        }
+        .sticky .dropdown-content {
+            top: 3.4rem;
+        }
+
+        nav ul {
+            text-align: left;
+        }
+
+        nav ul li {
+            font-weight: 600;
+            margin: 0 0.8rem;
+            padding-right: 2rem;
+            font-size: 1.1rem;
+        }
+
+        nav #dropdown-btn span:hover, nav #dropdown-btn span:focus {
+            background-color: var(--fdl-dark-background);
+        }
+
+        #navbar {
+            flex-direction: column;
+        }
+    }
+    
+    @media(min-width: 1000px) {
+        #dropdown-btn {
+            display:none;
+        }
+        
+        #navDropdown {
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            text-align: center;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        #navbar {
+            flex-direction: row;
+        }
+
+    }
+
+    nav  {
+        background-color: var(--fdl-background);
+        box-shadow: 0 1rem 1rem -1rem var(--fdl-shadow);
+        width: 100%;
+        padding: 0.5rem 0;
+        display: flex;
+        flex-direction: row;
+    }
+    nav .left.inner-wrapper, nav .right.inner-wrapper {
+        flex: 1;
+        display: flex;
+        margin: 0 2rem;
+    }
+    nav .right.inner-wrapper {
+        justify-content: flex-end;
+    }
+    #dropdown-btn {
+        display:none;
+    }
+    nav #nav-flag-container {
+        border: var(--fdl-secondary);
+        border-width: 0.2rem;
+        border-style: solid;
+        border-radius: 4px;
+        box-sizing: border-box;
+        height: 3rem;
+        margin: 0 0 0 2rem;
+        background-image: url("public/img/body/flags/de.svg");
+        background-size: contain;
+        width: 4rem;
+    }
+    nav ul {
+        margin: 0;
+        width: 100%;
+        list-style-type: none;
+        padding: 0;
+    }
+    nav ul li {
+        color: var(--fdl-secondary);
+    }
+    nav ul hr {
+        margin: 0.5rem 0;
+        border-color: var(--primary-color);
+    }
+    nav ul a {
+        text-decoration: none;
+        color: currentColor;
+        cursor: pointer;
+    }
+    nav ul a:hover li {
+        opacity: 0.8;
+    }
+    nav .nav-button {
+        height: 3rem;
+        width: 4rem;
+        min-height: 3rem;
+        min-width: 4rem;
+        background-color: var(--primary-color);
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    nav .nav-button:hover {
+        opacity: 0.8;
+    }
+
+    nav .nav-button img {
+        margin: 0 1rem;
+        height: 2rem;
+        width: 2rem;
+        background-color: var(--primary-color);
+        box-sizing:border-box;
+        padding: 0.15rem;
+        border: solid;
+        border-width: 0.1rem;
+        border-color: var(--button-color);
+        border-radius: 50%;
+    }
+
+    #header-text {
+        font-weight: 700;
+    }   
+    /* The sticky class is added to the navbar with JS when it reaches its scroll position */
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+</style>

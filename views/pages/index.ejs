@@ -1,0 +1,43 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('../partials/html/general/head') %>
+        <!-- css/root -->
+        <%- include('../partials/css/root')%>
+    </head>
+    <body>
+        <!-- css/body -->
+        <%- include('../partials/css/body')%>
+        <div id="page-container">
+            <!-- css/header -->
+            <%- include('../partials/css/header')%>
+            <header>
+                <%- include('../partials/html/general/header') %>
+            </header>
+
+            <!-- css/nav -->
+            <%- include('../partials/css/nav')%>
+            <nav id="nav">
+                <%- include('../partials/html/general/nav') %> 
+            </nav>
+            <!-- js/nav/sticky -->
+            <%- include('../partials/js/nav/sticky')%>
+
+            <div id="content-wrap">
+                <!-- css/main -->
+                <%- include('../partials/css/main')%>
+                <main>
+                    <%- include('../partials/html/single/' + type)%>
+                </main>
+            </div>
+        </div>
+
+        <!-- css/footer -->
+        <%- include('../partials/css/footer')%>
+        <footer>
+            <%- include('../partials/html/general/footer') %>
+        </footer>
+    </body>
+</html>

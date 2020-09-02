@@ -1,0 +1,24 @@
+<style>
+    main {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    #error {
+        max-width: 20vh;
+        padding: 3rem 4rem;
+        border-radius: 0.5rem;
+        background-color: var(--fdl-dark-background);;
+    }
+    #error h1, #error h2 {
+        margin: 0;
+        word-wrap: break-word;
+    }
+</style>
+
+<div id="error">
+    <h1><%=error.code%></h1>
+    <h2><%=error.message%></h2>
+</div>

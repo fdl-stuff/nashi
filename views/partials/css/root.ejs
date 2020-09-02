@@ -1,0 +1,43 @@
+
+<style>
+    :root {
+        --primary-color: #4491EA;
+        --primary-dark-color: #2881e6; 
+        --button-color: #FFFFFF;
+        --dark-button-color: #d6d4d4;
+    }
+
+    body, html {
+        background-color: var(--fdl-background);
+        height: 100%;
+        font-family: sans-serif, serif;
+        display:flex; 
+        margin: 0;
+        flex-direction:column; 
+    }
+    a {
+        text-decoration-line: none;
+    }
+</style>
+
+<% if (user.mode === "dark") { %>
+    <style>
+        :root {
+            --fdl-background: #494949;
+            --fdl-dark-background: #353535;
+            --fdl-secondary: #ffffff;
+            --fdl-dark-secondary: #d3d2d2;
+            --fdl-shadow: #333;
+        }
+    </style>
+<% } else { %>
+    <style>
+        :root {
+            --fdl-background: #ffffff;
+            --fdl-dark-background: #d3d2d2;
+            --fdl-secondary: #494949;
+            --fdl-dark-secondary: #353535;
+            --fdl-shadow: #888;
+        }   
+    </style>
+<% } %>

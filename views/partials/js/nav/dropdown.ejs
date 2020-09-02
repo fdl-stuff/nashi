@@ -1,0 +1,13 @@
+<script>function openDropdown() {
+    document.getElementById("navDropdown").classList.toggle("show");
+    document.getElementById("navDropdown").classList.toggle("dropdown-inactive")
+}
+window.addEventListener("click", function(event) {
+    if (document.getElementById("inner-dropdown-btn") !== event.target) {
+        var dropdown = document.getElementById("navDropdown");
+        if (dropdown.classList.contains('show')) {
+            dropdown.classList.toggle("show");
+            dropdown.classList.toggle("dropdown-inactive")
+        }
+    }
+});</script>

@@ -1,0 +1,32 @@
+<div class="left inner-wrapper">
+    <a href="?mode=<%- (user.mode == "dark") ? "light" : "dark" -%>"><div class="nav-button"><img src="/public/img/body/header/<%- (user.mode == "light") ? "light" : "dark" -%>.svg" alt="Modus Wechsel Knopf"></div></a>
+</div>
+<div class="center inner-wrapper" id="dropdown-btn"><span onclick="openDropdown()" id="inner-dropdown-btn" unselectable="on">☰</span></div>
+<div id="navDropdown" class="dropdown-content dropdown-inactive">
+
+    <div class="center inner-wrapper">
+        <ul id="navbar">
+            <a href="/artikel"><li>Artikel</li></a>
+            <hr>
+            <a href="/info"><li>Info</li></a>
+            <hr>
+            <a href="/pädagogik"><li>Pädagogik</li></a>
+            <hr>
+            <a href="/schule"><li>Schule</li></a>
+        </ul>
+    </div>
+
+</div>
+<%- include('../../../partials/js/nav/dropdown') %> 
+
+<div class="right inner-wrapper">
+    <a href="/login?redir=<%- url %> ">
+        <div class="nav-button">
+            <% if(user.id) { %> 
+                <img src="http://192.168.137.1:3000/users/<%- user.id %>.jpg" onerror="if (this.src != '/public/img/body/header/guest.svg') this.src = '/public/img/body/header/guest.svg';"> 
+            <% } else { %>
+                <img src="/public/img/body/header/guest.svg" alt="Gast">
+            <% } %>
+        </div>
+    </a>
+</div>
