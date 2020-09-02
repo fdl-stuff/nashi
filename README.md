@@ -52,6 +52,7 @@ ringo:
 # this depends on your operating system so:
 
 windows:
+# if this doesnt work your mysql service might be called something different like just mysql to check type net start and look for mysql and if you get access denied run it as an administrator
 net start mysql80
 
 linux: 
