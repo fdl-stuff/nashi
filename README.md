@@ -1,2 +1,66 @@
 # nashi
 fdl frontend
+
+## requirements
+
+`NODE 12`
+`MYSQL 8+`
+
+## install
+
+nashi (frontend): 
+
+```
+git clone https://github.com/fdl-stuff/nashi/ nashi
+
+cd nashi 
+
+npm install
+```
+
+ringo (database):
+
+```
+git clone https://github.com/fdl-stuff/ringo/ ringo
+
+cd ringo
+
+mysql -h localhot -u root ringo -p < full-preset.sql
+```
+
+image server:
+
+```
+git clone https://github.com/fdl-stuff/image-server image-server
+
+cd image-server
+
+npm install
+```
+
+## starting it up
+
+nashi:
+```
+cd nashi
+
+nodemon
+```
+
+ringo:
+```
+# this depends on your operating system so:
+
+windows:
+net start mysql80
+
+linux: 
+/usr/bin/mysql -u root -p
+```
+
+image-server:
+```
+cd image-server
+
+nodemon
+```
