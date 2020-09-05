@@ -25,7 +25,11 @@ git clone https://github.com/fdl-stuff/ringo/ ringo
 
 cd ringo
 
-mysql -h localhot -u root ringo -p < full-preset.sql
+# windows
+# on windows you can in theory execute the same command that is used for linux by finding your mysql bin folder but usually its easier to just run it through a sql visual tool like mysql workbench
+
+# linux
+mysql -h localhost -u root ringo -p < full-preset.sql
 ```
 
 image server:
