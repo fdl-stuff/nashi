@@ -10,7 +10,6 @@ fdl frontend
 
 ```
 // ### nashi (frontend): ### 
-
 git clone https://github.com/fdl-stuff/nashi/ nashi
 
 cd nashi 
@@ -18,6 +17,8 @@ cd nashi
 npm install
 
 // #########################
+
+cd ..
 
 // ### ringo (database): ###
 
@@ -34,6 +35,8 @@ cd ringo
 mysql -h localhost -u root ringo -p < full-preset.sql
 
 // #####################
+
+cd ..
 
 // ### image server: ###
 
@@ -79,6 +82,8 @@ cd nashi
 nodemon
 
 // #####################
+
+cd ..
 
 // ### image-server: ###
 
