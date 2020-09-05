@@ -38,6 +38,11 @@ cd image-server
 npm install
 ```
 
+*if nodemon didn't install with the packages do*
+```
+npm install nodemon --global
+```
+
 ## starting it up
 
 nashi:
