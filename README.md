@@ -3,8 +3,8 @@ fdl frontend
 
 ## requirements
 
-`NODE 12`
-`MYSQL 8+`
+`NODE LTS`
+`MYSQL 8.0.20`
 
 ## install
 
