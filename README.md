@@ -45,13 +45,6 @@ npm install nodemon --global
 
 ## starting it up
 
-nashi:
-```
-cd nashi
-
-nodemon
-```
-
 ringo:
 ```
 # this depends on your operating system so:
@@ -62,6 +55,13 @@ net start mysql80
 
 linux: 
 /usr/bin/mysql -u root -p
+```
+
+nashi:
+```
+cd nashi
+
+nodemon
 ```
 
 image-server:
