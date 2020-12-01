@@ -6,6 +6,12 @@ fdl frontend
 `NODE LTS`
 `MYSQL 8.0.20`
 
+## default ports
+
+`3306`: ringo (database)
+`80` / `443`: nashi (the website)
+`3000`: image-server
+
 ## install
 
 ```
