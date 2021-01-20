@@ -10,9 +10,9 @@ fdl frontend
 
 `3306`: ringo (database)
 
-`80` / `443`: nashi (the website)
+`8484`: nashi (the website)
 
-`3000`: image-server
+`4848`: image-server
 
 ## install
 
