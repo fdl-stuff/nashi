@@ -5,6 +5,11 @@ fdl frontend
 
 `NODE LTS`
 `MYSQL 8.0.20`
+`NGINX`
+
+## note
+
+for production i recommend using linux, personally i used ubuntu 20.04.1 but you can definitely make this work on windows too if that's your intention! If you are encountering any issues please report them ^_^
 
 ## default ports
 
