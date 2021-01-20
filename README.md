@@ -104,3 +104,5 @@ cd image-server
 
 nodemon
 ```
+
+or alternatively in production I'd look into using a linux service, I've created [an issue](https://github.com/fdl-stuff/nashi/issues/10) explaining how you can create them! 
