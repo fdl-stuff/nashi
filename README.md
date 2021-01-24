@@ -11,7 +11,9 @@ fdl frontend
 
 for production i recommend using linux, personally i used ubuntu 20.04.1 but you can definitely make this work on windows too if that's your intention! If you are encountering any issues please report them ^_^
 
-also if you wanna use it properly you should look into setting up nginx like in [#11](https://github.com/fdl-stuff/nashi/issues/11)
+if you wanna use it properly you should look into setting up nginx like in [#11](https://github.com/fdl-stuff/nashi/issues/11)
+
+and you will most likely encounter the error "ER_NOT_SUPPORTED_AUTH_MODE" but that's okay simply look into [#1](https://github.com/fdl-stuff/nashi/issues/1)
 
 ## default ports
 
