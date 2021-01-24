@@ -75,8 +75,6 @@ net start mysql80
 cd nashi
 nodemon # alternatively you can also just do node .
 
-cd ..
-
 # image-server:
 cd image-server
 nodemon # alternatively you can also just do node .
