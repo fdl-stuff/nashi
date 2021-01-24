@@ -11,6 +11,8 @@ fdl frontend
 
 for production i recommend using linux, personally i used ubuntu 20.04.1 but you can definitely make this work on windows too if that's your intention! If you are encountering any issues please report them ^_^
 
+also if you wanna use it properly you should look into setting up nginx like in #11
+
 ## default ports
 
 `3306`: ringo (database)
@@ -105,4 +107,4 @@ cd image-server
 nodemon
 ```
 
-or alternatively in production I'd look into using a linux service, I've created [an issue](https://github.com/fdl-stuff/nashi/issues/10) explaining how you can create them! 
+or alternatively in production I'd look into using a linux service, I've created #10 explaining how you can create them! 
