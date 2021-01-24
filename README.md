@@ -25,88 +25,61 @@ and you will most likely encounter the error "ER_NOT_SUPPORTED_AUTH_MODE" but th
 
 ## install
 
-```
-// ### nashi (frontend): ### 
+```bash
+# nashi (frontend): #
 git clone https://github.com/fdl-stuff/nashi/ nashi
-
 cd nashi 
-
 npm install
-
-// #########################
 
 cd ..
 
-// ### ringo (database): ###
-
+# ringo (database):
 git clone https://github.com/fdl-stuff/ringo/ ringo
-
 cd ringo
 
-// windows:
-/*  on windows you can in theory execute the same command that is used for linux by finding your mysql bin folder,
-    but usually its easier to just run it through a sql visual tool like mysql workbench 
-*/
+# windows:
+# on windows you can in theory execute the same command that is used for linux by finding your mysql bin folder,
+# but usually its easier to just run it through a sql visual tool like mysql workbench 
 
-// linux
+# linux:
 mysql -h localhost -u root ringo -p < full-preset.sql
-
-// #####################
 
 cd ..
 
-// ### image server: ###
-
+# image server:
 git clone https://github.com/fdl-stuff/image-server image-server
-
 cd image-server
-
 npm install
-// ###############
 
-// ### nodemon ###
-
-// only necessary if nodemon didn't install through npm install, to test this simply type nodemon in your terminal.
-
+# nodemon
+# this is good if you want to work with the code but in production id look into making nashi a service
 npm install nodemon --global
 ```
 
 ## starting it up
-```
-// ### ringo: ###
+```bash
+# ringo:
+# this depends on your operating system so:
 
-// this depends on your operating system so:
+# windows:
+# if this doesnt work your mysql service might be called something different like: MYSQL or MYSQL*insert your version*,
+# to find your version type net start and look for some service starting with mysql.
 
-// windows:
-/*  if this doesnt work your mysql service might be called something different like: MYSQL or MYSQL*insert your version*,
-    to find your version type net start and look for some service starting with mysql
-   
-    if you get access denied run the terminal as an administrator 
-*/
-
+# if you get access denied run the terminal as an administrator 
 net start mysql80
 
-// linux:
-
+# linux:
 /usr/bin/mysql -u root -p
 
-// ##############
-
-// ### nashi: ###
-
+# nashi:
 cd nashi
-
-nodemon
-
-// #####################
+nodemon # alternatively you can also just do node .
 
 cd ..
 
-// ### image-server: ###
-
+# image-server:
 cd image-server
-
-nodemon
+nodemon # alternatively you can also just do node .
 ```
 
-or alternatively in production I'd look into using a linux service, I've created [#10](https://github.com/fdl-stuff/nashi/issues/10) explaining how you can create them! 
+In production I'd look into using a linux service, I've created [#10](https://github.com/fdl-stuff/nashi/issues/10) explaining how you can create them! 
