@@ -1,4 +1,5 @@
 const {errorHandling, mysql, String} = require('utility');
+const config = require('./config.json')
 const argon2 = require('argon2'); 
 
 const showdown = require('showdown'),
@@ -16,11 +17,11 @@ markdown.setOption("excludeTrailingPunctuationFromURLs", true);
 
 
 const db_config = {
-    host : 'localhost',
-    user : 'root',
-    password : process.env.MYSQL_PASSWORD || 'sutekina#SQL',
-    database : process.env.MYSQL_DATABASE || 'ringo',
-    timezone: 'Z',
+    host : config.mysql.host,
+    user : config.mysql.user,
+    password : config.mysql.password,
+    database : config.mysql.database,
+    timezone: config.mysql.timezone,
     insecureAuth : true
 }
 
@@ -100,8 +101,8 @@ app.use(middleware.bodyParser.urlencoded({
 }));
 app.use(middleware.favicon('./public/img/favicon/favicon.ico'));
 app.use(middleware.expressSession({
-    key: 'session',
-    secret: 'uwu',
+    key: config.cookies.name,
+    secret: config.cookies.secret,
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
@@ -118,6 +119,11 @@ app.use((req, res, next) => {
         redir: req.query.redir || '/',
         page_title: undefined,
         url: req.path,
+        config: {
+            app_name: config.app_name,
+            domains: config.domains,
+            port: config.port
+        },
         user: {
             id: null,
             language: "ger",

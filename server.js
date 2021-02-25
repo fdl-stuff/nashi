@@ -2,9 +2,10 @@
 
 // waki said do refresh so that cookies call after you login
 const express = require('express');
+const config = require('./config.json')
 const app = express();
-const PORT = process.env.PORT || 80;
-app.listen(PORT, () => console.log('nashi running on ' + PORT));
+const PORT = config.port;
+app.listen(PORT, () => console.log(config.app_name + ' running on ' + PORT));
 
 module.exports = app;
 
