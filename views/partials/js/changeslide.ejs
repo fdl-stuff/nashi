@@ -1,0 +1,13 @@
+<script>
+    var currentSlide = 0; 
+    function changeSlide(index) {
+        var newSlide = currentSlide + index;
+        if(newSlide < 0) newSlide = img.length - 1;
+        if(newSlide >= img.length) newSlide = 0;
+
+        img[currentSlide].classList.toggle("slideshow-image-active");
+        img[newSlide].classList.toggle("slideshow-image-active");
+
+        currentSlide = newSlide;
+    }
+</script>

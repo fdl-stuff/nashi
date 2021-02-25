@@ -1,0 +1,134 @@
+<style>
+        /* mobile */
+    @media(max-width: 1000px) {
+        .information p {
+            text-align: center;
+        }
+        .information h2 {
+            text-align: center;
+        }
+    }
+    @media(min-width: 1000px) {
+        .information p {
+            text-align: center;
+        }
+        .information h2 {
+            text-align: center;
+        }
+        .top-container {
+            border-bottom-width: 0.1rem;
+            border-bottom-style: solid;
+        }
+        .contact {
+            display: flex;
+            justify-items: center;
+            align-items: center;
+        }
+        
+        .information {
+            display: flex;
+            flex-wrap: wrap;
+            flex-grow: 2;
+        }
+    }
+    .outer-segment {
+        padding: 1rem 3rem;
+        margin-bottom: 2rem;
+    }
+    .outer-segment hr {
+        margin: 1rem 0;
+        border-width: 1px;
+        border-style: solid;
+    }
+    .heading {
+        color: var(--primary-color);
+        text-align: center;
+        word-break: break-all;
+        font-size: 3rem;
+        margin: 1rem 0;
+    }
+    .information p {
+        margin: 0%;
+        line-height: 1.3rem;
+        padding: 0.5rem 0;
+    }
+    .information h3 {
+        margin: 0.5rem 0;
+    }
+    .information h2 {
+        margin: 0.8rem 0;
+    }
+    .information img {
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+    .information a {
+        text-decoration: none;
+        color: var(--primary-color);
+    }
+    .information #text {
+        max-width: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .information a:hover {
+        color: var(--primary-dark-color);
+    }
+    .information br {
+        display: block;
+        margin: 0.4rem 0;
+        content: " ";
+    }
+    .information ul {
+        margin: 0;
+    }
+    .information li {
+        margin: 0.2rem 0;
+    }
+    .information div {
+        overflow-wrap: break-word;
+        flex: 0 50%;    
+    }
+    #map {
+        height: 20rem
+    }
+    #map iframe {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="outer-segment">
+    <div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d717.3386439164077!2d10.631192071003738!3d53.881457667123726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b20c25dbc34c9f%3A0xe192fee334b9f7f8!2sFreie%20Dorfschule%20L%C3%BCbeck!5e1!3m2!1sen!2sde!4v1612806644758!5m2!1sen!2sde" referrerpolicy="no-referrer" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    <hr>
+    <h1 class="heading">Kontakt</h2>
+    <div class="contact">
+        <div class="information">
+            <div class="top-container">
+                <h2>🏠 Adresse</h2>
+                <p>Morierstr. 41 L<br>
+                23565 Lübeck</p>
+            </div>
+            <div class="top-container">
+                <h2>📞 Telefon</h2>
+                <p>0173-5828552 (Safiya Colak)<br>
+                0174-2482829 (Andrea Buchholz)</p>
+            </div>
+            <div>
+                <h2>🕑 Öffnungszeiten</h2>
+                <p>Mo.-Fr.: 08:00 – 13:00 Uhr</p>    
+            </div>
+            <div>
+                <h2>✉️ Email</h2>
+                <p><a href="mailto:info@freiedorfschuleluebeck.de">info@freiedorfschuleluebeck.de</a></p>
+            </div>
+        </div>
+
+    </div>
+    <!-- TODO: <div class="formular"></div> -->
+</div>

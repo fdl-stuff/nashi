@@ -1,36 +1,45 @@
 <style>
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .outer-segment {
+        height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
+    @media(max-width: 1000px) {
+        .segment {
+            width: 20rem;
+        }
+    }
+    @media(min-width: 1000px) {
+        .segment {
+            width: 30rem;
+        }
+    }
     .segment {
-        width: 15rem;
-        margin: 2rem;
-        padding: 2rem;
-        border-radius: 0.5rem;
-        background-color: var(--fdl-dark-background);
-        overflow: hidden;
         text-align: right;
     }
     .field {
-        margin: 1rem 0rem;
-        font-size: 0.8rem;
+        margin: 3rem 0rem;
+        font-size: 1rem;
         color: var(--fdl-secondary);
     }
     .field input, .field label {
         display:block;
         padding: 0;
-        width: min-content;
     }
     .field input {
         width: 100%;
-        padding: 0.8rem 1rem;
-        margin: 0.5rem 0;
+        font-size: 1.2rem;
+        padding: 1.3rem 1.3rem;
         display: inline-block;
-        border: 0.1rem solid var(--fdl-secondary);
+        border: 0.2rem solid var(--fdl-secondary);
         border-radius: 0.2rem;
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
         -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -38,7 +47,7 @@
     }
     .field input:focus {
         outline: none !important;
-        border: 0.1rem solid var(--primary-color);
+        border: 0.2rem solid var(--primary-color);
         border-radius: 0.2rem;
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
         -moz-box-sizing: border-box;    /* Firefox, other Gecko */
@@ -47,27 +56,29 @@
     button {
         background-color: var(--primary-color);
         color: var(--button-color);
-        font-size: 0.8rem;
-        padding: 0.8rem 1rem;
+        font-size: 1.2rem;
+        padding: 1rem;
         border: none;
         border-radius: 0.2rem;
         cursor: pointer;
-        width: 8rem;
+        width: 10rem;
     }
 
     button:hover {
         opacity: 0.8;
     }
     #login-title {
+        font-size: 3rem;
         color: var(--fdl-secondary);
         text-align: center;
         margin-top: 0;
+        margin-bottom: -1rem;
     }
 </style>
 <div class="outer-segment">
     <div class="segment">
         <h1 id="login-title">Anmelden</h1>
-        <form id="login-form" method="post" action="/login">
+        <form id="login-form" method="post" action="/konto/login?redir=<%- redir %> ">
             <div class="field">
                 <input tabindex="1" type="email" name="email" placeholder="Email" value="" maxlength="254" required="required">
             </div>
@@ -76,7 +87,6 @@
             </div>
             <input type="hidden" name="redir" value="<%- redir %>">
         </form>
-        <br>
         <button tabindex="3" type="submit" form="login-form">Anmelden</button>
     </div>
 </div>

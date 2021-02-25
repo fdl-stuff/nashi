@@ -1,71 +1,56 @@
 //start app
+
+// waki said do refresh so that cookies call after you login
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+const PORT = process.env.PORT || 80;
+app.listen(PORT, () => console.log('nashi running on ' + PORT));
 
 module.exports = app;
 
-const {errorHandling, String, argon2} = require('./init');
-const mysql = require('utility/mysql');
+const {errorHandling} = require('./init');
+const routers = require("./routers");
 
 try {
-    // app.post('/create', async (req, res, next) => {
-    //     try {
-    //         password = await argon2.hash(req.body.password);
-    //         res.end(password);
-    //     } catch (err) {
-    //         next(new errorHandling.SutekinaError(err.message, 500));
-    //     }
-    // });
     app.get('/', (req, res, next) => {
-        req.data.type = "index";    
+        req.data.type = "index";
+        req.data.page_title = "Startseite"
+        req.data.content = [{
+            page_id: 1,
+            url: "1.png",
+            title: "BOOS LOL BOOBS"
+        },
+        {
+            page_id: 2,
+            url: "2.png",
+            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
+        },
+        {
+            page_id: 3,
+            url: "3.png",
+            title: "meow :)"
+        },
+        {
+            page_id: 4,
+            url: "4.png",
+            title: "BOOS LOL BOOBS"
+        },
+        {
+            page_id: 5,
+            url: "5.png",
+            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
+        },
+        {
+            page_id: 6,
+            url: "6.png",
+            title: "meow :)"
+        }];
         res.render('pages/index', req.data);
     });
-    app.get('/login', (req, res, next) => {
-        //add remember me and password forgotten
-        req.data.type = "login";
-        req.data.redir = req.query.redir || '/';
-        if(req.data.user.id) return res.redirect('/logout');
-        res.render('pages/index', req.data);
-    });
-    app.post('/login', (req, res, next) => {
-        if(!req.body || !req.body.email || !req.body.password) return res.redirect('/login');
-        if(String.isPasswordValidator(req.body.password)) {
-            mysql.$query(`SELECT password FROM users WHERE email = ?`, [req.body.email], {
-                req, res, next, async handler(error, result, fields, router) {
-                    if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
-                    //if the email is invalid
-                    if(!result[0]) return res.redirect('/login')
-                    try {
-                        if(await argon2.verify(result[0].password, req.body.password)) {
-                            req.session.email = req.body.email;
-                            res.redirect(req.data.redir || '/');
-                        } else {
-                            //wrong password
-                            return res.redirect('/login')
-                        }
-                    } catch(err) {
-                        //internal failure
-                        next(new errorHandling.SutekinaError(err.message, 500));
-                    }
-                }
+    for(i = 0; i < routers.length; i++) {
+        app.use(routers[i].url, routers[i].export);
+    }
 
-            });
-            //if the password isnt a valid password (too short too long yea :D idk can happen if someone requests manually this isnbt perfect cause someone could set a short password in hte database and then would be unable to login hm id change the minimum to 1 in the utility config for strings)
-        } else return res.redirect('/login');
-    });
-    app.get('/logout', (req, res, next) => {
-        req.session.destroy((err) => {
-            if(err) return next(new errorHandling.SutekinaError(err.message, 500));
-            res.redirect('/');
-        });
-    });
-    
-    app.get('/br', (req, res, next )=> {
-        req.data.type = "br";
-        res.render('pages/index', req.data);
-    });
     app.all('/error', (req, res, next) => {
         throw new errorHandling.SutekinaStatusError(420)
     });
@@ -75,13 +60,23 @@ try {
 
 app.use((req, res, next) => next(new errorHandling.SutekinaStatusError(404)));
 
-const debug = require("debug")("MOMO:ERROR");
+const debug = require("debug")("NASHI:ERROR");
 
 app.use((err, req, res, next) => {
     debug(err);
     body = {
         code: err.status || err.statusCode || 500,
         message: err.message || err
+    };
+    req.data.page_title = "Error"
+    if(!req.data) req.data = {
+        url: req.path,
+        user: {
+            id: null,
+            language: "ger",
+            mode: "light",
+            flags: 0
+        }
     };
     req.data.type = "error";
     req.data.error = body;

@@ -1,8 +1,26 @@
 <style>
+    #content-wrap {
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+    }
+    /* mobile */
+    @media(max-width: 1000px) {
+        main {
+            max-width: 95vw;
+            min-width: 95vw;
+        }
+    }
+    @media(min-width: 1000px) {
+        main {
+            max-width: 980px;
+            min-width: 980px;
+        }
+    }
     main {
-        min-height: calc(54vh);
+        min-height: 100vh;
+        background-color: var(--fdl-dark-background);;
         color: var(--fdl-secondary);
-        z-index: 1;
         height: auto;
         width: auto;
         overflow:auto;

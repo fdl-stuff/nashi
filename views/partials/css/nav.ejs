@@ -6,12 +6,6 @@
             align-items: center;
         }
 
-        nav #dropdown-btn  {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
         nav #dropdown-btn span {
             width: 5rem;
             text-align: center;
@@ -29,7 +23,12 @@
             user-select: none;
         }
         nav .dropdown-inactive {
-            display: none;
+            top: 2rem;
+            z-index: -1;
+            opacity: 0;
+        }
+        nav .show {
+            top: 3rem;
         }
         nav .dropdown-content {
             position: absolute;
@@ -44,13 +43,9 @@
             align-items: center;
             background-color: var(--fdl-background);
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            top: 14.5rem;
+            transition: top 0.3s, opacity 0.3s;
         }
-        .sticky .dropdown-content {
-            top: 3.4rem;
-        }
-
+        
         nav ul {
             text-align: left;
         }
@@ -72,7 +67,7 @@
     }
     
     @media(min-width: 1000px) {
-        #dropdown-btn {
+        #dropdown-btn #inner-dropdown-btn {
             display:none;
         }
         
@@ -99,6 +94,13 @@
 
     }
 
+    .nav-wrapper {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
     nav  {
         background-color: var(--fdl-background);
         box-shadow: 0 1rem 1rem -1rem var(--fdl-shadow);
@@ -106,6 +108,7 @@
         padding: 0.5rem 0;
         display: flex;
         flex-direction: row;
+        position: relative;
     }
     nav .left.inner-wrapper, nav .right.inner-wrapper {
         flex: 1;
@@ -115,21 +118,6 @@
     nav .right.inner-wrapper {
         justify-content: flex-end;
     }
-    #dropdown-btn {
-        display:none;
-    }
-    nav #nav-flag-container {
-        border: var(--fdl-secondary);
-        border-width: 0.2rem;
-        border-style: solid;
-        border-radius: 4px;
-        box-sizing: border-box;
-        height: 3rem;
-        margin: 0 0 0 2rem;
-        background-image: url("public/img/body/flags/de.svg");
-        background-size: contain;
-        width: 4rem;
-    }
     nav ul {
         margin: 0;
         width: 100%;
@@ -138,6 +126,9 @@
     }
     nav ul li {
         color: var(--fdl-secondary);
+        top: 0;
+        transition: all ease 0.1s;
+        position: relative;
     }
     nav ul hr {
         margin: 0.5rem 0;
@@ -150,6 +141,7 @@
     }
     nav ul a:hover li {
         opacity: 0.8;
+        top: -0.05rem;
     }
     nav .nav-button {
         height: 3rem;
@@ -161,20 +153,34 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        top: 0;
+        transition: all ease 0.1s;
+        position: relative;
     }
     nav .nav-button:hover {
         opacity: 0.8;
+        top: -0.1rem;
     }
 
+    nav #dropdown-btn  {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    nav #dumb {
+        padding: 0.15rem;
+    }
     nav .nav-button img {
         margin: 0 1rem;
         height: 2rem;
         width: 2rem;
         background-color: var(--primary-color);
         box-sizing:border-box;
-        padding: 0.15rem;
+        /* padding: 0.15rem; */
         border: solid;
-        border-width: 0.1rem;
+        border-width: 0.15rem;
         border-color: var(--button-color);
         border-radius: 50%;
     }
@@ -183,9 +189,9 @@
         font-weight: 700;
     }   
     /* The sticky class is added to the navbar with JS when it reaches its scroll position */
-    .sticky {
-        position: fixed;
+    /* .sticky { 
+        position: sticky;
         top: 0;
         width: 100%;
-    }
+    } */
 </style>

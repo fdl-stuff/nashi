@@ -1,7 +1,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <!-- this has to be adjusted to the equivelant site :3 -->
-<title>Freie Dorfschule Lübeck</title>
+<title>
+    <% if (page_title) { %>
+        <%= page_title %> - Freie Dorfschule Lübeck
+    <% } else { %>
+        Freie Dorfschule Lübeck
+    <% } %>
+</title>
 <meta name="web_author" content="Felix Johannes Caldeira Cabral">
 <meta name="designer" content="Felix Johannes Caldeira Cabral">
 <meta name="description" content="Freie Dorfschule Lübeck - Achtsam miteinander lernen, verantwortlich handeln.">

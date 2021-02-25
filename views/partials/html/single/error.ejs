@@ -1,19 +1,27 @@
 <style>
     main {
         display:flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: center; 
         align-items: center;
-        text-align: center;
     }
     #error {
-        max-width: 20vh;
+        display: flex;
+        justify-content: center; 
+        align-items: center;
+        flex-direction: column;
         padding: 3rem 4rem;
-        border-radius: 0.5rem;
-        background-color: var(--fdl-dark-background);;
+        text-align: center;
+    }
+    #error h1 {
+        font-size: 6rem;
+    }
+    #error h2 {
+        font-size: 2rem;
     }
     #error h1, #error h2 {
         margin: 0;
+        -ms-word-break: break-all;
+        word-break: break-all;
         word-wrap: break-word;
     }
 </style>

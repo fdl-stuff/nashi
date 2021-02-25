@@ -1,3 +1,111 @@
-<!-- <div class="bannerImage">
-    <img src="http://192.168.137.1:3000/articles/1.jpg" alt="image">
-</div> -->
+<style>
+    
+    .outer-segment {
+        padding: 1rem;
+        background-color: var(--fdl-dark-background);
+        min-height: 100vh;
+        align-self: center;
+    }
+    /* mobile */
+    @media(max-width: 1000px) {
+        .outer-segment {
+            max-width: 87vw;
+            min-width: 87vw;
+        }
+    }
+    @media(min-width: 1000px) {
+        main {
+            max-width: 95vw;
+            min-width: 95vw;
+            background-color: var(--fdl-dark-background);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .outer-segment {
+            max-width: 980px;
+            min-width: 980px;
+        }
+    }
+
+    .slideshow-container {
+        position:  relative;
+        overflow: hidden;
+    }
+    .slideshow-image {
+        transition: opacity 0.1s ease-in;
+        opacity: 0.8;
+        height: 0;
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+    /* to get margin-top font-size/3*2 */
+    /* in theory it should just be font-size/2 but because the text doesnt fully occupy the field it has to be like this, this isnt 100% accurate but :3 */
+    @media(max-width: 1000px) {
+        .slideshow-navigation {
+            font-size: 3rem;
+            top: 50%;
+            margin-top: -2rem;
+        }
+        .slideshow-image-active {
+            height: 16rem;
+        }
+    }
+    @media(min-width: 1000px) {
+        .slideshow-navigation {
+            font-size: 3rem;
+            top: 50%;
+            margin-top: -2rem;
+        }
+        .slideshow-image-active {
+            height: 50vh;
+        }
+    }
+    .slideshow-image-active {
+        opacity: 1;
+    }
+    .slideshow-navigation {
+        cursor: pointer;
+        position: absolute;
+        width: auto;
+        padding: 0 1rem;
+        color: white;
+        font-weight: bold;
+        opacity: 0.4;
+        transition: opacity 0.5s;
+        user-select: none;
+               user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+    }
+    .slideshow-navigation:hover {
+        opacity: 1;
+    }
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+</style>
+
+<div class="slideshow-container">
+    <% for(let i = 0; i < content.length; i++ ) { %>
+        <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= content[i].url %>"></div>
+    <% } %>
+    <a class="slideshow-navigation prev" onclick="changeSlide(-1)">&#10094;</a>
+    <a class="slideshow-navigation next" onclick="changeSlide(1)">&#10095;</a>
+</div>
+
+<script>
+    var img=document.getElementsByClassName('slideshow-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('http://192.168.0.120:3000/article_banners/" + img[i].dataset.image + "')";}
+</script>
+
+<%- include('../../../partials/js/changeslide') %> 
+
+<div class="outer-segment">
+
+    
+
+</div>

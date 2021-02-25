@@ -1,6 +1,6 @@
 {
     "env": {
-        "PORT": 80,
+        "PORT": 8484,
         "NODE_ENV": "production",
         "MYSQL_PASSWORD": "sutekina#SQL",
         "MYSQL_DATABASE": "ringo"

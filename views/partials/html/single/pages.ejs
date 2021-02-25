@@ -1,0 +1,92 @@
+<style>
+    .outer-segment {
+        padding: 1rem;
+    }
+    .pages-list {
+        list-style: none;
+        padding: 0;
+    }
+    .page {
+        color: var(--button-color);
+        padding: 1rem;
+        background-color: var(--primary-color);
+        margin: 1rem 2rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+        display: flex;
+        
+        align-items: center;
+        flex-direction: row;
+    }
+    .page div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    @media(max-width: 1000px) {
+        .page-title {
+            font-size: 1.5rem;
+            margin: 0;
+            width: 70vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .page img {
+            height: 3rem;
+            margin-right: 1rem;
+        }
+    }
+    @media (max-width: 700px) {
+        .page-title {
+            width: 60vw;
+        }
+    }
+    @media (max-width: 600px) {
+        .page-title {
+            width: 50vw;
+        }
+    }
+    @media (max-width: 400px) {
+        .page-title {
+            width: 30vw;
+        }
+    }
+    @media(min-width: 1000px) {
+        .page-title {
+            font-size: 2rem;
+            word-break: break-all;
+            margin: 0;
+        }
+        .page img {
+            height: 4rem;
+            margin-right: 1rem;
+        }
+    }
+
+    .pages-heading {
+        text-align: center;
+        font-size: 3rem;
+    }
+</style>
+
+<div class="outer-segment">
+    <h1 class="pages-heading"><%= page_title %></h1>
+
+    <ul class="pages-list">
+        <% content.forEach(element => { %>
+            <a href="/<%= element.page_type %>/<%= element.title %> ">
+                <li class="page" title="<%= element.title %>">
+                    <img src="/public/img/body/<%= element.page_type %>.svg">
+                    <div>
+                        <h2 class="page-title"><%= element.title %></h2>
+                    </div>
+                </li>
+            </a>
+        <% }) %>
+    </ul>
+</div>

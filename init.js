@@ -1,7 +1,21 @@
 const {errorHandling, mysql, String} = require('utility');
 const argon2 = require('argon2'); 
 
-const mysqlOptions = {
+const showdown = require('showdown'),
+markdown = new showdown.Converter();
+
+markdown.setOption("simplifiedAutoLink", true);
+markdown.setOption("strikethrough", true);
+markdown.setOption("tables", true);
+markdown.setOption("tasklists", true);
+markdown.setOption("simpleLineBreaks", true);
+markdown.setOption("requireSpaceBeforeHeadingText", false);
+markdown.setOption("emoji", true);
+markdown.setOption("noHeaderId", true);
+markdown.setOption("excludeTrailingPunctuationFromURLs", true);
+
+
+const db_config = {
     host : 'localhost',
     user : 'root',
     password : process.env.MYSQL_PASSWORD || 'sutekina#SQL',
@@ -10,20 +24,40 @@ const mysqlOptions = {
     insecureAuth : true
 }
 
-const connection = mysql.createConnection(mysqlOptions);
+  
+let connection;
+
+handleDisconnect = () => {
+    connection = mysql.createConnection(db_config);
+
+    connection.connect(function(err) {
+        if(err) {
+            console.log('error when connecting to db:', err);
+            setTimeout(handleDisconnect, 2000);
+        }
+        mysql.$connect(connection);
+    });
+
+    connection.on('error', function(err) {
+        console.log('db error', err);
+        handleDisconnect();                         
+    });
+}
+
+handleDisconnect();
 
 const express = require('express');
 const expressSession = require('express-session');
 /*
 if you get the error ER_NOT_SUPPORTED_AUTH_MODE, execute this mysql query 
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 
 flush privileges;
 */
 const MySQLStore = require('express-mysql-session')(expressSession);
 
-const sessionStore = new MySQLStore(Object.assign(mysqlOptions, {
+let session_config = Object.assign(db_config, {
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000,
@@ -37,14 +71,10 @@ const sessionStore = new MySQLStore(Object.assign(mysqlOptions, {
             data: 'data'
         }
     }
-}));
-
-/* yes this is needed */ 
-connection.connect();
-mysql.$connect(connection);
+});
+const sessionStore = new MySQLStore(session_config);
 
 const app = require('./server');
-const session = require('express-session');
 
 app.use('/public', express.static('public'));
 
@@ -85,11 +115,12 @@ app.use(middleware.expressSession({
 
 app.use((req, res, next) => {
     req.data = {
+        redir: req.query.redir || '/',
+        page_title: undefined,
         url: req.path,
         user: {
             id: null,
             language: "ger",
-            mode: "light",
             flags: 0
         }
     };
@@ -123,7 +154,7 @@ app.use((req, res, next) => {
             break;
     };
     if(req.session.mode) {
-        req.data.user.mode = req.session.mode;
+        if(req.query.mode || !req.data.user.mode) req.data.user.mode = req.session.mode;
         if(req.session.email) {
             mysql.$query(`UPDATE users SET mode = ? WHERE email = ?`, [req.session.mode, req.session.email], {
                 req, res, next, handler(error, result, fields, router) {
@@ -131,8 +162,8 @@ app.use((req, res, next) => {
                     return next();
                 }
             });
-        } else next();
-    } else next();
+        } else return next();
+    } else return next();
 })
 
 app.disable('case sensitive routing');
@@ -148,5 +179,6 @@ module.exports = {
     app,
     argon2,
     express,
+    markdown,
     middleware
 }
