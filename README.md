@@ -31,6 +31,9 @@ git clone https://github.com/fdl-stuff/nashi/ nashi
 cd nashi 
 npm install
 
+# use some editor to edit the sample.config.json to your liking and then change the name to config.json
+# once you did that proceed with the rest :3
+
 cd ..
 
 # ringo (database):
