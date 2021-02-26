@@ -1,7 +1,24 @@
 <style>
     .outer-segment {
-        padding: 1rem 3rem;
         margin-bottom: 2rem;
+    }
+    @media(max-width: 1000px) {
+        .article-heading {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .outer-segment {
+            padding: 1rem;
+        }
+    }
+    @media(min-width: 1000px) {
+        .article-heading {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        .outer-segment {
+            padding: 1rem 3rem;
+        }
     }
     .outer-segment hr {
         margin: 2rem 0;
@@ -9,9 +26,7 @@
     .article-heading {
         color: var(--primary-color);
         text-align: center;
-        word-break: break-all;
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
+        word-break: break-word;
     }
     .article-small {
         font-size: 1.1rem;
@@ -101,11 +116,11 @@
 
 <script>
     var created_at = document.getElementById("created_at").innerText;
-    document.getElementById("created_at").innerText = new Date(created_at).toLocaleString(navigator.language, {dateStyle: "full", timeStyle: "short"});
+    document.getElementById("created_at").innerText = new Date(created_at).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"});
 
     if(document.getElementById("last_update")) {
         var last_update = document.getElementById("last_update").getAttribute("title");
-        document.getElementById("last_update").setAttribute("title", new Date(last_update).toLocaleString(navigator.language, {dateStyle: "full", timeStyle: "short"}));
+        document.getElementById("last_update").setAttribute("title", new Date(last_update).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"}));
     }
 </script>
 

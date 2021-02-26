@@ -10,7 +10,6 @@
         color: var(--button-color);
         padding: 1rem;
         background-color: var(--primary-color);
-        margin: 1rem 2rem;
         overflow-wrap: break-word;
         word-wrap: break-word;
         -webkit-hyphens: auto;
@@ -31,10 +30,13 @@
         .page-title {
             font-size: 1.5rem;
             margin: 0;
-            width: 70vw;
+            width: 75vw;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+        .page {
+            margin: 1rem 0;
         }
         .page img {
             height: 3rem;
@@ -43,23 +45,26 @@
     }
     @media (max-width: 700px) {
         .page-title {
-            width: 60vw;
+            width: 75vw;
         }
     }
     @media (max-width: 600px) {
         .page-title {
-            width: 50vw;
+            width: 65vw;
         }
     }
     @media (max-width: 400px) {
         .page-title {
-            width: 30vw;
+            width: 55vw;
         }
     }
     @media(min-width: 1000px) {
+        .page {
+            margin: 1rem 2rem;
+        }
         .page-title {
             font-size: 2rem;
-            word-break: break-all;
+            word-break: break-word;
             margin: 0;
         }
         .page img {

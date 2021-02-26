@@ -1,0 +1,20 @@
+{
+    "app_name": "Freie Dorfschule Lübeck",
+    "port": 8484,
+    "cookies": {
+        "name": "session",
+        "secret": "secret"
+    },
+    "mysql": {
+        "user": "root",
+        "host": "localhost",
+        "password": "sutekina#SQL",
+        "port": "3306",
+        "database": "ringo",
+        "timezone": "Z"
+    },
+    "domains": {
+        "app_domain": "http://localhost:8484",
+        "image_server": "http://localhost:4848"
+    }
+}
