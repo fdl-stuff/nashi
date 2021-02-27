@@ -15,6 +15,8 @@ if you wanna use it properly you should look into setting up nginx like in [#11]
 
 and you will most likely encounter the error "ER_NOT_SUPPORTED_AUTH_MODE" but that's okay simply look into [#1](https://github.com/fdl-stuff/nashi/issues/1)
 
+otherwise if you have any other questions or need information on something [#18](https://github.com/fdl-stuff/nashi/issues/18) might have your answer, if it doesn't simply create a new issue.
+
 ## default ports
 
 `3306`: ringo (database)
