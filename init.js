@@ -99,9 +99,11 @@ app.use(middleware.cors({
 app.use(middleware.bodyParser.urlencoded({
     extended:true
 }));
+
 app.use(middleware.favicon('./public/img/favicon/favicon.ico'));
 app.use(middleware.expressSession({
     key: config.cookies.name,
+    domain: config.services.nashi.domain.split("://")[1],
     secret: config.cookies.secret,
     store: sessionStore,
     saveUninitialized: false,
@@ -119,11 +121,7 @@ app.use((req, res, next) => {
         redir: req.query.redir || '/',
         page_title: undefined,
         url: req.path,
-        config: {
-            app_name: config.app_name,
-            domains: config.domains,
-            port: config.port
-        },
+        services: config.services,
         user: {
             id: null,
             language: "ger",

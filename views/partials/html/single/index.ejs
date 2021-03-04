@@ -110,7 +110,7 @@
 </div>
 
 <script>
-    var img=document.getElementsByClassName('slideshow-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('<%= config.domains.image_server %>/article_banners/" + img[i].dataset.image + "')";}
+    var img=document.getElementsByClassName('slideshow-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('<%= services.image_server.domain %>/article_banners/" + img[i].dataset.image + "')";}
 </script>
 
 <%- include('../../../partials/js/changeslide') %> 

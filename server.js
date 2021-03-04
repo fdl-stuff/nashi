@@ -4,8 +4,8 @@
 const express = require('express');
 const config = require('./config.json')
 const app = express();
-const PORT = config.port;
-app.listen(PORT, () => console.log(config.app_name + ' running on ' + PORT));
+const PORT = config.services.nashi.port;
+app.listen(PORT, () => console.log(config.services.nashi.displayname + ' running on ' + PORT));
 
 module.exports = app;
 
