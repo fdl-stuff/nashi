@@ -1,7 +1,8 @@
+<!-- this is mostly the slideshow and some base stuff for outer-segment -->
 <style>
-    
     .outer-segment {
         padding: 1rem;
+        padding-top: 1.5rem;
         background-color: var(--fdl-dark-background);
         min-height: 40vh;
         align-self: center;
@@ -98,10 +99,57 @@
         border-radius: 3px 0 0 3px;
     }
 </style>
+<!-- things below that >:3 -->
+<style>
+    .outer-segment hr {
+        margin: 0.5rem 0;
+        border-width: 1px;
+        border-style: solid;
+        background-color: var(--fdl-secondary);
+    }
+    .rp-heading {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 1rem;
+    }
+    .rp-heading h1 {
+        margin: 0px 1rem;
+    }
+    .rp-heading img {
+        height: 2.5rem;
+    }
+    .rp-recent {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .rp-page {
+        position: relative;
+        margin: 1rem;
+        flex: 1 1 1px;
+        background-color: var(--primary-color);
+        color: var(--fdl-secondary);
+        transition: all ease 0.1s;
+    }
+    .rp-page:hover {
+        top: -0.5rem;
+    }
+    .rp-page-image {
+        margin: 0.6rem;
+        height: 9rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .rp-page-title {
+        margin: 0;
+    }
+</style>
 
 <div class="slideshow-container">
-    <% for(let i = 0; i < content.length; i++ ) { %>
-        <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= content[i].url %>"></div>
+    <% for(let i = 0; i < slideshow.length; i++ ) { %>
+        <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= slideshow[i].url %>"></div>
     <% } %>
     <a class="slideshow-navigation prev" onclick="changeSlide(-1)"><img src="/public/img/body/prev.svg" alt=""></a>
     <a class="slideshow-navigation next" onclick="changeSlide(1)"><img src="/public/img/body/next.svg" alt=""></a>
@@ -116,7 +164,24 @@
 <%- include('../../../partials/js/changeslide') %> 
 
 <div class="outer-segment">
-
-    
+    <div class="recent-pages">
+        <div class="rp-heading">
+            <img src="/public/img/body/artikel.svg">
+            <h1>Aktuelles</h1>
+        </div>
+        <hr>
+        <div class="rp-recent">
+            <% if(recent_pages[0]) { for( let i = 0; i < recent_pages.length; i++ ) { %>
+                <a class="rp-page" href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %> ">
+                    <div class="rp-page-date"><%= recent_pages[i].last_update %></div>
+                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "svg" %>"></div>
+                    <h2 class="rp-page-title"><%= recent_pages[i].title %></h2>
+                </a>
+            <% }} else { %> <span class="rp-error">404 - keine aktuelle Seite wurde gefunden..</span><% } %>
+        </div>
+        <script>
+            var img=document.getElementsByClassName('rp-page-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + img[i].dataset.image + "')";}
+        </script>
+    </div>
 
 </div>

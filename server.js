@@ -9,44 +9,31 @@ app.listen(PORT, () => console.log(config.services.nashi.displayname + ' running
 
 module.exports = app;
 
-const {errorHandling} = require('./init');
+const {errorHandling, } = require('./init');
+const mysql = require('utility/mysql');
 const routers = require("./routers");
 
 try {
     app.get('/', (req, res, next) => {
         req.data.type = "index";
         req.data.page_title = "Startseite"
-        req.data.content = [{
+        req.data.slideshow = [{
             page_id: 1,
             url: "1.png",
             title: "BOOS LOL BOOBS"
         },
         {
             page_id: 2,
-            url: "2.png",
-            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
-        },
-        {
-            page_id: 3,
-            url: "3.png",
-            title: "meow :)"
-        },
-        {
-            page_id: 4,
-            url: "4.png",
-            title: "BOOS LOL BOOBS"
-        },
-        {
-            page_id: 5,
-            url: "5.png",
-            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
-        },
-        {
-            page_id: 6,
             url: "6.png",
-            title: "meow :)"
+            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
         }];
-        res.render('pages/index', req.data);
+        mysql.$query('SELECT pc.title, p.page_type, i.image_id, i.file_format, pc.last_update FROM pages p LEFT JOIN page_content pc on p.page_content_id = pc.page_content_id or p.page_id = pc.page_id and p.page_content_id is null LEFT JOIN images i ON i.image_id = pc.image_id WHERE p.hidden = 0 ORDER BY pc.last_update desc LIMIT 3', [], {
+        req, res, next, async handler(error, result, fields, router) {    
+            if(error) return next(new errorHandling.SutekinaError(error.message, 500));
+            console.log(result);
+            req.data.recent_pages = result;
+            res.render('pages/index', req.data);
+        }});
     });
     for(i = 0; i < routers.length; i++) {
         app.use(routers[i].url, routers[i].export);
