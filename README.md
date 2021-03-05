@@ -17,6 +17,8 @@ and you will most likely encounter the error "ER_NOT_SUPPORTED_AUTH_MODE" but th
 
 otherwise if you have any other questions or need information on something [#18](https://github.com/fdl-stuff/nashi/issues/18) might have your answer, if it doesn't simply create a new issue.
 
+ON LINUX: if you are installing nodejs DONT install it through your package manager, that version is most likely outdated and incompatible. Use [Node Version Manager](https://github.com/nvm-sh/nvm#installing-and-updating)!!
+
 ## default ports
 
 `3306`: ringo (database)
