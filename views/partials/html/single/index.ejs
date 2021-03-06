@@ -24,8 +24,8 @@
             flex-direction: column;
         }
         .outer-segment {
-            max-width: 980px;
-            min-width: 980px;
+            max-width: 920px;
+            min-width: 920px;
         }
     }
 
@@ -107,33 +107,70 @@
         border-style: solid;
         background-color: var(--fdl-secondary);
     }
-    .rp-heading {
+    .i-content p {
+        margin: 0.8rem 0;
+        font-size: 1.1rem;
+    } 
+    .rp-heading, .i-heading {
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin-left: 1rem;
+        margin: 0 1rem;
     }
-    .rp-heading h1 {
+    .rp-heading h1, .i-heading h1 {
         margin: 0px 1rem;
     }
-    .rp-heading img {
-        height: 2.5rem;
+    .rp-heading img, .i-heading img {
+        height: 2rem;
+        padding: 0.3rem;
+        border-radius: 0.4rem;
+        background-color: var(--primary-color);
     }
     .rp-recent {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
+        justify-content: center;
+    }
+    @media(max-width: 1000px) {
+        .rp-page {
+            max-width: 20rem;
+            min-width: 20rem;
+        }
+    }
+    @media(max-width: 850px) {
+        .rp-page {
+            max-width: 17rem;
+            min-width: 17rem;
+        }
+    }
+    @media(max-width: 700px) {
+        .rp-page {
+            max-width: 15rem;
+            min-width: 15rem;
+        }
+    }
+    @media(max-width: 650px) {
+        .rp-page {
+            max-width: 20rem;
+            min-width: 20rem;
+        }
+    }
+    @media(min-width: 1000px) {
+        .rp-page {
+            max-width: 17rem;
+            min-width: 17rem;
+        }
     }
     .rp-page {
         position: relative;
         margin: 1rem;
         flex: 1 1 1px;
         background-color: var(--primary-color);
-        color: var(--fdl-secondary);
-        transition: all ease 0.1s;
+        color: var(--button-color);
+        transition: all ease 0.3s;
     }
     .rp-page:hover {
-        top: -0.5rem;
+        top: -0.2rem;
     }
     .rp-page-image {
         margin: 0.6rem;
@@ -143,7 +180,19 @@
         background-size: cover;
     }
     .rp-page-title {
-        margin: 0;
+        margin: 0.6rem;
+        width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;    
+    }
+    .rp-page-date {
+        position: absolute;
+        padding: 0.1rem 0.3rem;
+        top: 15px;
+        right: 15px;
+        font-weight: 700;
+        background-color: var(--primary-color);
     }
 </style>
 
@@ -151,19 +200,40 @@
     <% for(let i = 0; i < slideshow.length; i++ ) { %>
         <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= slideshow[i].url %>"></div>
     <% } %>
-    <a class="slideshow-navigation prev" onclick="changeSlide(-1)"><img src="/public/img/body/prev.svg" alt=""></a>
-    <a class="slideshow-navigation next" onclick="changeSlide(1)"><img src="/public/img/body/next.svg" alt=""></a>
+    <a class="slideshow-navigation prev"><img src="/public/img/body/prev.svg" alt=""></a>
+    <a class="slideshow-navigation next"><img src="/public/img/body/next.svg" alt=""></a>
     <!-- &#10094;
     &#10095; -->
 </div>
 
 <script>
-    var img=document.getElementsByClassName('slideshow-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('<%= services.image_server.domain %>/article_banners/" + img[i].dataset.image + "')";}
+    var slideImg=document.getElementsByClassName('slideshow-image');
+    for(var i = 0; i < slideImg.length; i++) {slideImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/article_banners/" + slideImg[i].dataset.image + "')";}
 </script>
 
 <%- include('../../../partials/js/changeslide') %> 
 
+<script>
+    var prev = document.getElementsByClassName("prev")[0];
+    prev.addEventListener("click", () => changeSlide(-1), false);
+    var next = document.getElementsByClassName("next")[0];
+    next.addEventListener("click", () => changeSlide(1), false);
+</script>
+
 <div class="outer-segment">
+    <div class="information">
+        <div class="i-heading">
+            <img src="/public/img/body/info.svg">
+            <h1>Information</h1>
+        </div>
+        <hr>
+        <div class="i-content">
+            <p>Hier finden Sie allgemeine Informationen zu unserer Schule: Wir beschulen Schülerinnen und Schüler im Alter von 5 bis 18 Jahren. Wir führen zur Hauptschul- und Realschulprüfung. In Vorbereitung ist der Abschluss Hochschulreife.</p>
+            <p>Die Säulen unserer Pädagogik sind: Selbstgesteuertes Lernen, der Waldorflehrplan, Konsent und Gewaltfreie Kommunikation.</p>
+            <p>Unsere Schule entwickelt sich fortlaufend weiter.</p>
+            <p>Das Lernen findet in unseren Schulräumen mit den Schülerinnen und Schülern, Eltern und unseren Lernbegleitern statt. Wir freuen uns, wenn wir Ihr Interesse an unserer Arbeit wecken können!</p>
+        </div>
+    </div>
     <div class="recent-pages">
         <div class="rp-heading">
             <img src="/public/img/body/artikel.svg">
@@ -172,15 +242,17 @@
         <hr>
         <div class="rp-recent">
             <% if(recent_pages[0]) { for( let i = 0; i < recent_pages.length; i++ ) { %>
-                <a class="rp-page" href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %> ">
-                    <div class="rp-page-date"><%= recent_pages[i].last_update %></div>
-                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "svg" %>"></div>
+                <a class="rp-page rp-page-<%= i %> " href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %> ">
+                    <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
+                    <%let page_date = new Date(recent_pages[i].last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
+                    <div class="rp-page-date"><%= page_date %> </div>
+                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "article_banners/6" %>.<%= recent_pages[i].file_format || "png" %>"></div>
                     <h2 class="rp-page-title"><%= recent_pages[i].title %></h2>
                 </a>
             <% }} else { %> <span class="rp-error">404 - keine aktuelle Seite wurde gefunden..</span><% } %>
         </div>
         <script>
-            var img=document.getElementsByClassName('rp-page-image');for(var i = 0; i < img.length; i++) {img[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + img[i].dataset.image + "')";}
+            var pageImg=document.getElementsByClassName('rp-page-image');for(var i = 0; i < pageImg.length; i++) {pageImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + pageImg[i].dataset.image + "')";}
         </script>
     </div>
 
