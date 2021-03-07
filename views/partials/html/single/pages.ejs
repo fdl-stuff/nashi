@@ -2,96 +2,113 @@
     .outer-segment {
         padding: 1rem;
     }
+    .outer-segment hr {
+        margin: 0.5rem 0;
+        border-width: 1px;
+        border-style: solid;
+        background-color: var(--fdl-secondary);
+    }
     .pages-list {
         list-style: none;
         padding: 0;
-    }
-    .page {
-        color: var(--button-color);
-        padding: 1rem;
-        background-color: var(--primary-color);
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        -webkit-hyphens: auto;
-        -ms-hyphens: auto;
-        -moz-hyphens: auto;
-        hyphens: auto;
         display: flex;
-        
-        align-items: center;
-        flex-direction: row;
-    }
-    .page div {
-        display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         justify-content: center;
     }
     @media(max-width: 1000px) {
-        .page-title {
-            font-size: 1.5rem;
-            margin: 0;
-            width: 75vw;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
         .page {
-            margin: 1rem 0;
+            max-width: 20rem;
+            min-width: 20rem;
         }
-        .page img {
-            height: 3rem;
-            margin-right: 1rem;
-        }
-    }
-    @media (max-width: 700px) {
-        .page-title {
-            width: 75vw;
+        .pages-heading {
+            font-size: 2.5rem;
         }
     }
-    @media (max-width: 600px) {
-        .page-title {
-            width: 65vw;
+    @media(max-width: 850px) {
+        .page {
+            max-width: 17rem;
+            min-width: 17rem;
         }
     }
-    @media (max-width: 400px) {
-        .page-title {
-            width: 55vw;
+    @media(max-width: 700px) {
+        .page {
+            max-width: 15rem;
+            min-width: 15rem;
+        }
+    }
+    @media(max-width: 650px) {
+        .page {
+            max-width: 20rem;
+            min-width: 20rem;
         }
     }
     @media(min-width: 1000px) {
+        .pages-heading {
+            font-size: 3rem;
+        }
         .page {
-            margin: 1rem 2rem;
-        }
-        .page-title {
-            font-size: 2rem;
-            word-break: break-word;
-            margin: 0;
-        }
-        .page img {
-            height: 4rem;
-            margin-right: 1rem;
+            max-width: 17rem;
+            min-width: 17rem;
         }
     }
-
+    .page {
+        position: relative;
+        margin: 1rem;
+        flex: 1 1 1px;
+        background-color: var(--primary-color);
+        color: var(--button-color);
+        transition: all ease 0.3s;
+    }
+    .page:hover {
+        top: -0.2rem;
+    }
+    .page-image {
+        margin: 0.6rem;
+        height: 9rem;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .page-title {
+        margin: 0.6rem;
+        width: 90%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;    
+    }
+    .page-date {
+        position: absolute;
+        padding: 0.1rem 0.3rem;
+        top: 15px;
+        right: 15px;
+        font-weight: 700;
+        background-color: var(--primary-color);
+    }
     .pages-heading {
+        padding: 0 2rem;
+        margin: 1rem 0;
+        transition: all ease 0.6s;
         text-align: center;
-        font-size: 3rem;
     }
 </style>
 
 <div class="outer-segment">
     <h1 class="pages-heading"><%= page_title %></h1>
-
+    <hr>
     <ul class="pages-list">
+        <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
+        
         <% content.forEach(element => { %>
-            <a href="/<%= element.page_type %>/<%= element.title %> ">
-                <li class="page" title="<%= element.title %>">
-                    <img src="/public/img/body/<%= element.page_type %>.svg">
-                    <div>
-                        <h2 class="page-title"><%= element.title %></h2>
-                    </div>
-                </li>
+            <a class="page page-<%= i %>" href="/<%= `${element.page_type}/${element.title}` %> ">
+                <%let page_date = new Date(element.last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
+                <div class="page-date"><%= page_date %> </div>
+                <div class="page-image" data-image="<%= element.image_id || "article_banners/4" %>.<%= element.file_format || "png" %>"></div>
+                <h2 class="page-title"><%= element.title %></h2>
             </a>
-        <% }) %>
+        <% }); %>
     </ul>
+    
+    <script>
+        var pageImg=document.getElementsByClassName('page-image');for(var i = 0; i < pageImg.length; i++) {pageImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + pageImg[i].dataset.image + "')";}
+    </script>
 </div>

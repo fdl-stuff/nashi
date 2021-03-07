@@ -20,17 +20,7 @@
     }
 </style>
 
-<% if (user.mode === "dark") { %>
-    <style>
-        :root {
-            --fdl-background: #494949;
-            --fdl-dark-background: #424242;
-            --fdl-secondary: #ffffff;
-            --fdl-dark-secondary: #e0e0e0;
-            --fdl-shadow: #333;
-        }
-    </style>
-<% } else { %>
+<% if (user.mode === "light") { %>
     <style>
         :root {
             --fdl-background: #ffffff;
@@ -39,5 +29,15 @@
             --fdl-dark-secondary: #424242;
             --fdl-shadow: #888;
         }   
+    </style>
+<% } else { %>
+    <style>
+        :root {
+            --fdl-background: #494949;
+            --fdl-dark-background: #424242;
+            --fdl-secondary: #ffffff;
+            --fdl-dark-secondary: #e0e0e0;
+            --fdl-shadow: #333;
+        }
     </style>
 <% } %>

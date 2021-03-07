@@ -30,9 +30,7 @@ try {
         mysql.$query('SELECT pc.title, p.page_type, i.image_id, i.file_format, pc.last_update FROM pages p LEFT JOIN page_content pc on p.page_content_id = pc.page_content_id or p.page_id = pc.page_id and p.page_content_id is null LEFT JOIN images i ON i.image_id = pc.image_id WHERE p.hidden = 0 AND p.page_type NOT IN ("datenschutz", "impressum", "kontakt") ORDER BY pc.last_update desc LIMIT 6', [], {
         req, res, next, async handler(error, result, fields, router) {    
             if(error) return next(new errorHandling.SutekinaError(error.message, 500));
-            console.log(result);
-            result;
-            req.data.recent_pages = [];
+            req.data.recent_pages = result;
             res.render('pages/index', req.data);
         }});
     });

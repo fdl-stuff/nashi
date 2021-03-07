@@ -125,7 +125,7 @@ app.use((req, res, next) => {
         user: {
             id: null,
             language: "ger",
-            flags: 0
+            flags: 0,
         }
     };
 

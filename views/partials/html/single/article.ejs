@@ -95,6 +95,9 @@
 </style>
 
 <div class="outer-segment">
+	 <% if(page.image_id) { %>
+			<div class="article-banner" data-image="<%= page.image_id %>.<%= page.file_format %>"> </div>
+	 <% } %>
     <h1 class="article-heading"><%= page.title %></h2>
     <span class="article-content article-small"><%- page.content %></span>
     <hr>
