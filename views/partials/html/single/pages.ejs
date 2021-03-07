@@ -99,10 +99,10 @@
         <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
         
         <% content.forEach(element => { %>
-            <a class="page page-<%= i %>" href="/<%= `${element.page_type}/${element.title}` %> ">
+            <a class="page" href="/<%= `${element.page_type}/${element.title}` %> ">
                 <%let page_date = new Date(element.last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
                 <div class="page-date"><%= page_date %> </div>
-                <div class="page-image" data-image="<%= element.image_id || "article_banners/4" %>.<%= element.file_format || "png" %>"></div>
+                <div class="page-image" data-image="<%= element.image_id || "article_banners/4" %>.<%= element.file_format || "png" %>?new=true"></div>
                 <h2 class="page-title"><%= element.title %></h2>
             </a>
         <% }); %>

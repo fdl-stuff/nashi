@@ -14,7 +14,7 @@ markdown.setOption("requireSpaceBeforeHeadingText", false);
 markdown.setOption("emoji", true);
 markdown.setOption("noHeaderId", true);
 markdown.setOption("excludeTrailingPunctuationFromURLs", true);
-
+markdown.setOption("parseImgDimension", true)
 
 const db_config = {
     host : config.mysql.host,

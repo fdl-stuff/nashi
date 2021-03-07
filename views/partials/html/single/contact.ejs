@@ -15,20 +15,18 @@
         .information h2 {
             text-align: center;
         }
-        .top-container {
-            border-bottom-width: 0.1rem;
-            border-bottom-style: solid;
-        }
         .contact {
             display: flex;
             justify-items: center;
             align-items: center;
         }
-        
         .information {
             display: flex;
             flex-wrap: wrap;
             flex-grow: 2;
+            border-width: 0.2rem;
+            border-style: solid;
+            padding: 1rem 5rem;
         }
     }
     .outer-segment {
@@ -57,7 +55,8 @@
         margin: 0.5rem 0;
     }
     .information h2 {
-        margin: 0.8rem 0;
+        margin: 0.5rem 0;
+        text-decoration: underline;
     }
     .information img {
         width: 100%;
@@ -74,7 +73,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .information a:hover {
         color: var(--primary-dark-color);
     }
@@ -91,7 +89,7 @@
     }
     .information div {
         overflow-wrap: break-word;
-        flex: 0 50%;    
+        flex: 0 49.6398905%;    
     }
     #map {
         height: 20rem
@@ -110,22 +108,22 @@
     <h1 class="heading">Kontakt</h2>
     <div class="contact">
         <div class="information">
-            <div class="top-container">
-                <h2>🏠 Adresse</h2>
+            <div class="top-container left-container">
+                <h2>Adresse</h2>
                 <p>Morierstr. 41 L<br>
                 23565 Lübeck</p>
             </div>
             <div class="top-container">
-                <h2>📞 Telefon</h2>
+                <h2>Telefon</h2>
                 <p>0173-5828552 (Safiya Colak)<br>
                 0174-2482829 (Andrea Buchholz)</p>
             </div>
-            <div>
-                <h2>🕑 Öffnungszeiten</h2>
+            <div class="left-container">
+                <h2>Öffnungszeiten</h2>
                 <p>Mo.-Fr.: 08:00 – 13:00 Uhr</p>    
             </div>
             <div>
-                <h2>✉️ Email</h2>
+                <h2>Email</h2>
                 <p><a href="mailto:info@freiedorfschuleluebeck.de">info@freiedorfschuleluebeck.de</a></p>
             </div>
         </div>

@@ -3,6 +3,9 @@
         margin-bottom: 2rem;
     }
     @media(max-width: 1000px) {
+        .article-banner {
+            height: 20rem;
+        }
         .article-heading {
             font-size: 2rem;
             margin-bottom: 1rem;
@@ -11,7 +14,15 @@
             padding: 1rem;
         }
     }
+    @media(max-width: 600px) {
+        .article-banner {
+            height: 13rem;
+        }
+    }
     @media(min-width: 1000px) {
+        .article-banner {
+            height: 22rem;
+        }
         .article-heading {
             font-size: 3rem;
             margin-bottom: 1.5rem;
@@ -20,8 +31,12 @@
             padding: 1rem 3rem;
         }
     }
+    .article-content img {
+        margin: 1rem auto;
+        display: block;
+    }
     .outer-segment hr {
-        margin: 2rem 0;
+        margin: 1rem 0;
     }
     .article-heading {
         color: var(--primary-color);
@@ -45,11 +60,6 @@
     .article-content h2 {
         margin: 0.8rem 0;
     }
-    .article-content img {
-        width: 100%;
-        height: auto;
-        margin: 1rem 0;
-    }
     .article-content a {
         text-decoration: none;
         color: var(--primary-color);
@@ -60,7 +70,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
     .article-content a:hover {
         color: var(--primary-dark-color);
     }
@@ -81,6 +90,13 @@
         height: 1.2rem;
         font-size: 1.2rem;
     } 
+    .article-banner {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transition: all ease 0.5s;
+        margin-bottom: 1.5rem;
+    }
     #creator img {
         height: 1.2rem;
         width: 1.2rem;
@@ -95,10 +111,13 @@
 </style>
 
 <div class="outer-segment">
-	 <% if(page.image_id) { %>
-			<div class="article-banner" data-image="<%= page.image_id %>.<%= page.file_format %>"> </div>
-	 <% } %>
     <h1 class="article-heading"><%= page.title %></h2>
+    <% if(page.image_id) { %>
+        <div class="article-banner" data-image="<%= page.image_id %>.<%= page.file_format %>?new=true"></div>
+    <% } %>
+    <script>
+        var articleImg=document.getElementsByClassName('article-banner');for(var i = 0; i < articleImg.length; i++) {articleImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + articleImg[i].dataset.image + "')";}
+    </script>
     <span class="article-content article-small"><%- page.content %></span>
     <hr>
     <div class="article-about article-small">
@@ -112,7 +131,7 @@
 
         <% if (page.created_at.getTime() !== page.last_update.getTime()) { %>
             &nbsp;
-            <b id="last_update" title="<%= page.last_update %>">(edited)</b>
+            <b id="last_update" title="<%= page.last_update %>">(bearbeitet)</b>
         <% } %>
     </div> 
 </div>
