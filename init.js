@@ -147,6 +147,14 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
+    if(!req.session.had_notice) {
+        req.session.had_notice = true;
+        req.data.show_notice = true;
+    } else req.data.show_notice = false;
+    next();
+})
+
+app.use((req, res, next) => {
     switch(req.query.mode) {
         case "dark":
             req.session.mode = "dark";

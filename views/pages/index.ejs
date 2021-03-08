@@ -33,7 +33,61 @@
                 </main>
             </div>
         </div>
-
+        <% if (show_notice) { %>
+            <style>
+                .cookie-notice {
+                    width: 100%;
+                    background-color: var(--primary-color);
+                    padding: 1rem;
+                    color: var(--button-color);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    position: fixed;
+                    bottom: 0;
+                    transition: all ease 0.3s;
+                }
+                .cookie-notice p {
+                    padding-right: 1rem;
+                    margin: 0;
+                }
+                .cookie-notice a {
+                    text-decoration: underline;
+                    color: var(--button-color)
+                }
+                .cookie-notice a:hover {
+                    color: var(--dark-button-color);
+                }
+                .cookie-close {
+                    margin-right: 2rem;
+                    background-color: var(--button-color);
+                    border-radius: 0.5rem;
+                }
+                .cookie-close:hover {
+                    cursor: pointer;
+                    background: var(--dark-button-color);
+                }
+                #cookie-cross {
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    margin: 0.5rem 0.5rem;
+                    height: 1rem;
+                    width: 1rem;
+                }
+                .cookie-notice-closed {
+                    bottom: -10rem;
+                }
+            </style>
+            <div class="cookie-notice">
+                <p>Wir verwenden Cookies für die funktionalität der Webseite, weitere Informationen zu Cookies erhalten Sie in unserer <a href="/datenschutz">Datenschutzerklärung</a></p>
+                <div class="cookie-close"><div id="cookie-cross" style="background-image: url(/public/img/body/cross.svg);"></div></div>
+            </div>
+            <script>
+                var cookieClose = document.getElementsByClassName('cookie-close')[0];
+                cookieClose.addEventListener("click", () => document.getElementsByClassName('cookie-notice')[0].classList.add('cookie-notice-closed'), false);
+            </script>
+        <% } %>
         <!-- css/footer -->
         <%- include('../partials/css/footer')%>
         <footer>
