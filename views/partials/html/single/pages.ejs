@@ -102,7 +102,7 @@
             <a class="page" href="/<%= `${element.page_type}/${element.title}` %> ">
                 <%let page_date = new Date(element.last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
                 <div class="page-date"><%= page_date %> </div>
-                <div class="page-image" data-image="<%= element.image_id || "article_banners/4" %>.<%= element.file_format || "png" %>?new=true"></div>
+                <div class="page-image" data-image="<%= element.image_id || "404" %>.<%= element.file_format || "error" %>?new=true"></div>
                 <h2 class="page-title"><%= element.title %></h2>
             </a>
         <% }); %>

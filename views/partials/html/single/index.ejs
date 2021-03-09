@@ -239,7 +239,7 @@
             <p>Die Säulen unserer Pädagogik sind: Selbstgesteuertes Lernen, der Waldorflehrplan, Konsent und Gewaltfreie Kommunikation.</p>
             <p>Unsere Schule entwickelt sich fortlaufend weiter.</p>
             <p>Das Lernen findet in unseren Schulräumen mit den Schülerinnen und Schülern, Eltern und unseren Lernbegleitern statt. Wir freuen uns, wenn wir Ihr Interesse an unserer Arbeit wecken können!</p>
-            <p>Unsere Webseite ist aktuell noch unter entwicklung, falls Ihnen irgendwelche Fehler auffallen bitten wir sie diese auf unserer <a href="https://github.com/freie-dorfschule-luebeck/nashi/issues">GitHub Seite</a> oder per email (<a href="mailto:felixjcaldeira@gmail.com">felixjcaldeira@gmail.com</a>) zu melden.</p>
+            <p>Unsere Webseite ist aktuell noch unter Entwicklung, falls Ihnen irgendwelche Fehler auffallen bitten wir Sie, diese auf unserer <a href="https://github.com/freie-dorfschule-luebeck/nashi/issues">GitHub Seite</a> oder per email (<a href="mailto:felixjcaldeira@gmail.com">felixjcaldeira@gmail.com</a>) zu melden.</p>
         </div>
     </div>
     <div class="recent-pages">
@@ -254,7 +254,7 @@
                     <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
                     <%let page_date = new Date(recent_pages[i].last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
                     <div class="rp-page-date"><%= page_date %> </div>
-                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "article_banners/6" %>.<%= recent_pages[i].file_format || "png" %>?new=true"></div>
+                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "error" %>?new=true"></div>
                     <h2 class="rp-page-title"><%= recent_pages[i].title %></h2>
                 </a>
             <% }} else { %> <span class="rp-error">404 - keine aktuelle Seite wurde gefunden..</span><% } %>

@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
     mysql.$query('SELECT pc.title, p.page_type, i.image_id, i.file_format, pc.last_update FROM pages p LEFT JOIN page_content pc on p.page_content_id = pc.page_content_id or p.page_id = pc.page_id and p.page_content_id is null LEFT JOIN images i ON i.image_id = pc.image_id WHERE p.hidden = 0 AND p.page_type = ? ORDER BY pc.last_update desc', [page_type], {
         req, res, next, async handler(error, result, fields, router) {
             if(error) return next(new errorHandling.SutekinaError(error.message, 500));
-            if(!result[0]) return next(new errorHandling.SutekinaError("Es gab keine ergebnisse für " + req.data.page_title, 404));
+            if(!result[0]) return next(new errorHandling.SutekinaError("Es gab keine Ergebnisse für " + req.data.page_title, 404));
             req.data.content = result;
             res.render("pages/index", req.data);
         }
