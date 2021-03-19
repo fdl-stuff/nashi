@@ -8,7 +8,7 @@
         align-self: center;
     }
     /* mobile */
-    @media(max-width: 1000px) {
+    @media(max-width: 999px) {
         .outer-segment {
             max-width: 87vw;
             min-width: 87vw;
@@ -24,8 +24,8 @@
             flex-direction: column;
         }
         .outer-segment {
-            max-width: 920px;
-            min-width: 920px;
+            max-width: 910px;
+            min-width: 910px;
         }
     }
 
@@ -43,7 +43,7 @@
     }
     /* to get margin-top height/3*2 */
     /* in theory it should just be font-size/2 but because the text doesnt fully occupy the field it has to be like this, this isnt 100% accurate but :3 */
-    @media(max-width: 1000px) {
+    @media(max-width: 999px) {
         .slideshow-navigation {
             top: 50%;
             margin-top: -2rem;
@@ -138,7 +138,7 @@
         flex-wrap: wrap;
         justify-content: center;
     }
-    @media(max-width: 1000px) {
+    @media(max-width: 999px) {
         .rp-page {
             max-width: 20rem;
             min-width: 20rem;
@@ -164,13 +164,13 @@
     }
     @media(min-width: 1000px) {
         .rp-page {
-            max-width: 17rem;
-            min-width: 17rem;
+            max-width: 17.5rem;
+            min-width: 17.5rem;
         }
     }
     .rp-page {
         position: relative;
-        margin: 1rem;
+        margin: 0.5rem;
         flex: 1 1 1px;
         background-color: var(--primary-color);
         color: var(--button-color);
@@ -187,6 +187,7 @@
         background-size: cover;
     }
     .rp-page-title {
+        font-weight: 500;
         margin: 0.6rem;
         width: 90%;
         white-space: nowrap;
@@ -198,7 +199,7 @@
         padding: 0.1rem 0.3rem;
         top: 15px;
         right: 15px;
-        font-weight: 700;
+        font-weight: 500;
         background-color: var(--primary-color);
     }
 </style>
@@ -249,12 +250,12 @@
         <hr>
         <div class="rp-recent">
             <% if(recent_pages[0]) { for( let i = 0; i < recent_pages.length; i++ ) { %>
-                <a class="rp-page rp-page-<%= i %> " href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %> ">
+                <a class="rp-page rp-page-<%= i %> " href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %>" title="<%= recent_pages[i].title %>">
                     <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
                     <%let page_date = new Date(recent_pages[i].last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
-                    <div class="rp-page-date"><%= page_date %> </div>
-                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "error" %>?new=true"></div>
+                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "banner" %>?new=true"></div>
                     <h2 class="rp-page-title"><%= recent_pages[i].title %></h2>
+                    <div class="rp-page-date"><%= page_date %> </div>
                 </a>
             <% }} else { %> <span class="rp-error">404 - keine aktuelle Seite wurde gefunden..</span><% } %>
         </div>

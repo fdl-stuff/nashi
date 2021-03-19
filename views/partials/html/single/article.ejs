@@ -2,7 +2,7 @@
     .outer-segment {
         margin-bottom: 2rem;
     }
-    @media(max-width: 1000px) {
+    @media(max-width: 999px) {
         .article-banner {
             height: 20rem;
         }
@@ -108,6 +108,16 @@
     #creator {
         display: inline-flex;
     }
+    .article-content table {
+        margin: 1rem 0;
+    }
+    .article-content th {
+        padding: 0 1rem;
+        text-align: left;
+    }
+    .article-content td {
+        padding: 0 1rem;
+    }
 </style>
 
 <div class="outer-segment">
@@ -121,29 +131,22 @@
     <span class="article-content article-small"><%- page.content %></span>
     <hr>
     <div class="article-about article-small">
-        <span id="creator" title="Author">
+        <span id="creator" title="Autor*in">
             <img src="<%= services.image_server.domain %>/users/<%- page.creator_id %>.jpg" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';">
             &nbsp;<%= page.creator %>
         </span>
         &nbsp;•&nbsp;
-
-        <span id="created_at" title="Datum"><%= page.created_at %></span> 
-
         <% if (page.created_at.getTime() !== page.last_update.getTime()) { %>
-            &nbsp;
-            <b id="last_update" title="<%= page.last_update %>">(bearbeitet)</b>
+            <span id="article_date" title="Datum"><%= page.last_update %></span> 
+        <% } else { %>
+            <span id="article_date" title="Datum"><%= page.created_at %></span> 
         <% } %>
     </div> 
 </div>
 
 <script>
-    var created_at = document.getElementById("created_at").innerText;
-    document.getElementById("created_at").innerText = new Date(created_at).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"});
-
-    if(document.getElementById("last_update")) {
-        var last_update = document.getElementById("last_update").getAttribute("title");
-        document.getElementById("last_update").setAttribute("title", new Date(last_update).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"}));
-    }
+    var created_at = document.getElementById("article_date").innerText;
+    document.getElementById("article_date").innerText = new Date(created_at).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"});
 </script>
 
 
