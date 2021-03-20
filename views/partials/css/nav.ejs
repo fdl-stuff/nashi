@@ -92,9 +92,7 @@
         #navbar {
             flex-direction: row;
         }
-
     }
-
     .nav-wrapper {
         position: -webkit-sticky;
         position: sticky;
@@ -141,7 +139,8 @@
         color: currentColor;
         cursor: pointer;
     }
-    nav ul a:hover li {
+    nav ul a:hover li,
+    nav ul a:focus li {
         opacity: 0.8;
         top: -0.05rem;
     }
@@ -159,7 +158,8 @@
         transition: all ease 0.1s;
         position: relative;
     }
-    nav .nav-button:hover {
+    nav .nav-button:hover,
+    nav .nav-button:focus {
         opacity: 0.8;
         top: -0.1rem;
     }

@@ -147,12 +147,11 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    if(!req.session.had_notice) {
-        req.session.had_notice = true;
-        req.data.show_notice = true;
-    } else req.data.show_notice = false;
+    if(req.session.consent) {
+        req.data.show_notice = false;
+    } else req.data.show_notice = true;
     next();
-})
+});
 
 app.use((req, res, next) => {
     switch(req.query.mode) {
@@ -170,13 +169,13 @@ app.use((req, res, next) => {
         if(req.session.email) {
             mysql.$query(`UPDATE users SET mode = ? WHERE email = ?`, [req.session.mode, req.session.email], {
                 req, res, next, handler(error, result, fields, router) {
-                    if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
+                    if(error) return router.next(new errorHandling.SutekinaError(error.message, 500));
                     return next();
                 }
             });
         } else return next();
     } else return next();
-})
+});
 
 app.disable('case sensitive routing');
 app.disable('strict routing');

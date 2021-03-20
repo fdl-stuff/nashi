@@ -38,8 +38,14 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
     req.session.destroy((err) => {
         if(err) return next(new errorHandling.SutekinaError(err.message, 500));
-        res.redirect(req.data.redir);
+        return res.redirect(req.data.redir);
     });
+});
+router.post('/cookie', (req, res, next) => {
+    if(req.query.consent === "true") {
+        req.session.consent = true;
+    }
+    return res.redirect(req.data.redir);
 });
 
 // router.post('/create', async (req, res, next) => {
