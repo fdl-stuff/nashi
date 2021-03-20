@@ -102,9 +102,9 @@ app.use(middleware.bodyParser.urlencoded({
 
 app.use(middleware.favicon('./public/img/favicon/favicon.ico'));
 app.use(middleware.expressSession({
-    key: config.cookies.name,
+    key: config.cookies.session.name,
     domain: config.services.nashi.domain.split("://")[1],
-    secret: config.cookies.secret,
+    secret: config.cookies.session.secret,
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
