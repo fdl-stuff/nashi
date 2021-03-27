@@ -11,11 +11,6 @@ module.exports = [
         "url": "/info",
         "export": require("./routers/articles")
     },
-    
-    {   
-        "url": "/konto",
-        "export": require("./routers/account")
-    },
     {
         "url": "/impressum",
         "export": require("./routers/info")
@@ -27,5 +22,9 @@ module.exports = [
     {
         "url": "/kontakt",
         "export": require("./routers/contact")
+    },
+    {   
+        "url": "/konto",
+        "export": require("./routers/account")
     }
 ]
