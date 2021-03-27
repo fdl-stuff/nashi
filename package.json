@@ -1,6 +1,6 @@
 {
   "name": "nashi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "fdl frontend",
   "main": "server.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "mysql2": "^2.1.0",
     "serve-favicon": "^2.5.0",
     "showdown": "^1.9.1",
-    "utility": "github:sutekina/utility#master"
+    "utility": "github:sutekina/utility#1.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

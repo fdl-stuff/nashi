@@ -22,17 +22,35 @@
             width: 30rem;
         }
     }
-    .segment {
-        text-align: right;
-    }
+    .field input:-webkit-autofill::first-line {font-size: 1.2rem}
     .field {
-        margin: 3rem 0rem;
-        font-size: 1rem;
+        margin: 2rem 0rem;
         color: var(--fdl-secondary);
     }
-    .field input, .field label {
-        display:block;
-        padding: 0;
+    .field label {
+        display: block;
+        font-weight: 500;
+        padding-bottom: 0.2rem;
+    }
+    .password-label {
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    #show-password {
+        margin: 0;
+        margin-right: 0.3rem;
+        height: 1rem;
+        width: 1rem;
+    }
+    #show-password:checked {
+        background-color: var(--primary-color);
+    }
+    .field a {
+        color: var(--primary-color);
+    }
+    .field a:hover, .field a:focus {
+        color: var(--primary-dark-color);
     }
     .field input {
         width: 100%;
@@ -53,7 +71,7 @@
         -moz-box-sizing: border-box;    /* Firefox, other Gecko */
         box-sizing: border-box;         /* Opera/IE 8+ */
     }
-    button {
+    .segment button {
         background-color: var(--primary-color);
         color: var(--button-color);
         font-size: 1.2rem;
@@ -61,11 +79,19 @@
         border: none;
         border-radius: 0.2rem;
         cursor: pointer;
-        width: 10rem;
+        width: 100%;
     }
-
-    button:hover,
-    button:focus {
+    .password-toggle {
+        -webkit-user-select: none;      
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin-top: 1rem;
+        display: inline-flex !important;
+        align-items: center;
+    }
+    .segment button:hover,
+    .segment button:focus {
         opacity: 0.8;
     }
     #login-title {
@@ -75,19 +101,71 @@
         margin-top: 0;
         margin-bottom: -1rem;
     }
+    .login-error {
+        color: #ff4242;
+        display: block;
+        margin-top: 0.3rem;
+        font-size: 0.8rem;
+    }
 </style>
 <div class="outer-segment">
     <div class="segment">
         <h1 id="login-title">Anmelden</h1>
         <form id="login-form" method="post" action="/konto/login?redir=<%- redir %> ">
             <div class="field">
-                <input tabindex="1" type="email" name="email" placeholder="Email" value="" maxlength="254" required="required">
+                <label for="email">Email</label>
+                <input tabindex="1" type="email" autocomplete="email" name="email" placeholder="Deine Email Addresse" value="" maxlength="254" required="required">
+                <% if (login_error && login_error.type === "email") { %>
+                    <span class="login-error"><%= login_error.message %></span>
+                    <style>
+                        .field input[type=email] {
+                            border: 0.2rem solid var(--error-color);
+                        }
+                    </style>
+                <% } %>
             </div>
             <div class="field">
-                <input tabindex="2" type="password" name="password" placeholder="Passwort" value="" maxlength="32" required="required">
+                <div class="password-label">
+                    <label for="password">Passwort</label>
+                    <span><a href="/konto/forgot">Passwort vergessen?</a></span>
+                </div>
+                <input tabindex="2" id="password-input" type="password" autocomplete="current-password" name="password" placeholder="Dein Passwort" value="" maxlength="32" required="required">
+                <% if (login_error && login_error.type === "password") { %>
+                    <span class="login-error"><%= login_error.message %></span>
+                    <style>
+                        .field input[type=password] {
+                            border: 0.2rem solid var(--error-color);
+                        }
+                    </style>
+                <% } %>
+                <label for="show-password" class="password-toggle">
+                    <input type="checkbox" id="show-password"/>
+                    Passwort anzeigen.
+                </label>
+                <script>
+                    document.getElementById("show-password").addEventListener("click", () => {
+                        var pw_input = document.getElementById("password-input");
+                        pw_input.type = pw_input.type == "password" ? "text" : "password";
+                    }, false);
+                </script>
             </div>
             <input type="hidden" name="redir" value="<%- redir %>">
         </form>
+        <% if (login_error && login_error.type === "login") { %>
+            <style>
+                .login-failed-container {
+                    background-color: var(--error-color);
+                    text-align: center;
+                    padding: 0.3rem;
+                    margin-top: -1.5rem;
+                    margin-bottom: 0.5rem;
+                    border-radius: 0.2rem;
+                }
+            </style>
+            <div class="login-failed-container">
+                <span><%= login_error.message %></span>
+            </div>
+        <% } %>
         <button tabindex="3" type="submit" form="login-form">Anmelden</button>
     </div>
 </div>
