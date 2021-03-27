@@ -1,9 +1,11 @@
 {
-    "app_name": "Freie Dorfschule Lübeck",
+    "app_name": "Freie Dorfschule Lï¿½beck",
     "port": 8484,
     "cookies": {
-        "name": "session",
-        "secret": "secret"
+        "session": {
+            "name": "session",
+            "secret": "secret"
+        }
     },
     "mysql": {
         "user": "root",
