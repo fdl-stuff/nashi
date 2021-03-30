@@ -117,8 +117,6 @@ app.use(middleware.expressSession({
 }));
 
 app.use((req, res, next) => {
-    
-                        console.log(req.session)
     req.data = {
         redir: req.query.redir || '/',
         page_title: undefined,
