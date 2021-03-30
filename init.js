@@ -103,20 +103,22 @@ app.use(middleware.bodyParser.urlencoded({
 app.use(middleware.favicon('./public/img/favicon/favicon.ico'));
 app.use(middleware.expressSession({
     key: config.cookies.session.name,
-    domain: config.services.nashi.domain.split("://")[1],
     secret: config.cookies.session.secret,
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
     cookie: {
+        domain: config.services.nashi.domain.split("://")[1],
+        maxAge: 315569259747,
         httpOnly: true, 
         sameSite: true,
-        secure: false, //in production set https ig
-        maxAge: 315569259747 
-    }
+        secure: false //in production set https ig
+    } 
 }));
 
 app.use((req, res, next) => {
+    
+                        console.log(req.session)
     req.data = {
         redir: req.query.redir || '/',
         page_title: undefined,
@@ -129,8 +131,8 @@ app.use((req, res, next) => {
         }
     };
 
-    if(req.session.email) {
-        mysql.$query(`SELECT * FROM users WHERE email = ?`, [req.session.email], {
+    if(req.session.user_id) {
+        mysql.$query(`SELECT * FROM users WHERE user_id = ?`, [req.session.user_id], {
             req, res, next, handler(error, result, fields, router) {
                 if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
                 if(!result[0]) return router.next(new errorHandling.SutekinaError("You are logged in with an invalid email address, please reset your cookies for this website!", 400))
@@ -166,8 +168,8 @@ app.use((req, res, next) => {
     };
     if(req.session.mode) {
         if(req.query.mode || !req.data.user.mode) req.data.user.mode = req.session.mode;
-        if(req.session.email) {
-            mysql.$query(`UPDATE users SET mode = ? WHERE email = ?`, [req.session.mode, req.session.email], {
+        if(req.session.user_id) {
+            mysql.$query(`UPDATE users SET mode = ? WHERE user_id = ?`, [req.session.mode, req.session.user_id], {
                 req, res, next, handler(error, result, fields, router) {
                     if(error) return router.next(new errorHandling.SutekinaError(error.message, 500));
                     return next();
