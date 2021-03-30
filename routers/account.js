@@ -13,15 +13,16 @@ router.get('/login', (req, res, next) => {
 router.post('/login', (req, res, next) => {
     if(!req.body) return res.redirect(`/konto/login?redir=${req.data.redir}`);
     try {
-        String.isPassword(req.body.password);
         String.isEmail(req.body.email);
-        mysql.$query(`SELECT password FROM users WHERE email = ?`, [req.body.email], {
+        String.isPassword(req.body.password);
+        mysql.$query(`SELECT user_id, password FROM users WHERE email = ?`, [req.body.email], {
             req, res, next, async handler(error, result, fields, router) {
                 if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
                 if(!result[0]) return res.redirect(`/konto/login?error=LOGIN_FAILED&redir=${req.data.redir}`)
                 try {
                     if(await argon2.verify(result[0].password, req.body.password)) {
-                        req.session.email = req.body.email;
+                        req.session.user_id = result[0].user_id;
+                        if(!req.body.keeplogin) req.session.cookie.maxAge = null;
                         return res.redirect(req.data.redir);
                     } else {
                         return res.redirect(`/konto/login?error=LOGIN_FAILED&redir=${req.data.redir}`)
