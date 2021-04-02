@@ -63,6 +63,7 @@
     .form-checkbox:focus, .form-checkbox:hover {
         outline: none !important;
         border: 0.2rem solid var(--fdl-dark-secondary);
+        opacity: 0.8;
     }
     .form-checkbox:checked {
         background-color: var(--primary-color);
@@ -96,6 +97,18 @@
         cursor: pointer;
         width: 100%;
     }
+    #sign-up {
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+        padding: 1rem;
+        text-align: center;
+        width: 100%;
+    }
+    #sign-up a {
+        color: var(--fdl-secondary);
+        text-decoration: underline;
+    }
     .checkbox-toggle {
         -webkit-user-select: none;      
         -moz-user-select: none;
@@ -109,7 +122,9 @@
         cursor: pointer;
     }
     .segment button:hover,
-    .segment button:focus {
+    .segment button:focus, 
+    #sign-up a:hover, 
+    #sign-up a:focus {
         opacity: 0.8;
     }
     #login-title {
@@ -157,12 +172,12 @@
                     </style>
                 <% } %>
                 <label for="show-password" class="checkbox-toggle">
-                    <input type="checkbox" class="form-checkbox" id="show-password"/>
+                    <input type="checkbox" class="form-checkbox" id="show-password" tabindex="3"/>
                     Passwort anzeigen.
                 </label>
                 <br>
                 <label for="keep-logged-in" class="checkbox-toggle">
-                    <input type="checkbox" class="form-checkbox" name="keeplogin" value="true" id="keep-logged-in"/>
+                    <input type="checkbox" class="form-checkbox" name="keeplogin" value="true" id="keep-logged-in" tabindex="3"/>
                     Angemeldet bleiben.
                 </label>
                 <script>
@@ -190,5 +205,8 @@
             </div>
         <% } %>
         <button tabindex="3" type="submit" form="login-form">Anmelden</button>
+        <div id="sign-up">
+            <a href="/konto/register?redir=<%= redir %> " tabindex="4">Noch kein Konto?</a>
+        </div>
     </div>
 </div>

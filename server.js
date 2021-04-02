@@ -1,6 +1,3 @@
-//start app
-
-// waki said do refresh so that cookies call after you login
 const express = require('express');
 const config = require('./config.json')
 const package = require('./package.json');
@@ -16,6 +13,7 @@ const routers = require("./routers");
 
 try {
     app.get('/', (req, res, next) => {
+        console.log(req.session)
         req.data.type = "index";
         req.data.page_title = "Startseite"
         req.data.slideshow = [{
@@ -38,7 +36,6 @@ try {
     for(i = 0; i < routers.length; i++) {
         app.use(routers[i].url, routers[i].export);
     }
-
     app.all('/error', (req, res, next) => {
         throw new errorHandling.SutekinaStatusError(420)
     });
