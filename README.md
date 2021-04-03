@@ -34,6 +34,7 @@ ON LINUX: if you are installing nodejs DONT install it through your package mana
 git clone https://github.com/fdl-stuff/nashi/ nashi
 cd nashi 
 npm install
+git submodule init && git submodule update
 
 # use some editor to edit the sample.config.json to your liking and then change the name to config.json
 # once you did that proceed with the rest :3
