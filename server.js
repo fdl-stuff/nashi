@@ -7,13 +7,11 @@ app.listen(PORT, () => console.log(`${config.services.nashi.displayname}:${PORT}
 
 module.exports = app;
 
-const {errorHandling, } = require('./init');
-const mysql = require('utility/mysql');
+const {errorHandling, mysql} = require('./init');
 const routers = require("./routers");
 
 try {
     app.get('/', (req, res, next) => {
-        console.log(req.session)
         req.data.type = "index";
         req.data.page_title = "Startseite"
         req.data.slideshow = [{

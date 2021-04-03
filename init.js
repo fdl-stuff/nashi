@@ -1,5 +1,5 @@
-const {errorHandling, mysql, String} = require('utility');
-console.log(mysql)
+const {errorHandling, mysql, String} = require('./utility');
+
 const config = require('./config.json')
 const argon2 = require('argon2'); 
 
@@ -31,7 +31,6 @@ let connection;
 
 handleDisconnect = () => {
     connection = mysql.createConnection(db_config);
-
     connection.connect(function(err) {
         if(err) {
             console.log('error when connecting to db:', err);

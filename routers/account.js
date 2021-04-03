@@ -1,5 +1,4 @@
-const {express, String, argon2} = require('../init');
-const mysql = require('utility/mysql');
+const {express, errorHandling, String, argon2, mysql} = require('../init');
 const login_errors = require("../constants/login_errors");
 const router = express.Router();
 
