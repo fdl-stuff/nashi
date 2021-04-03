@@ -4,7 +4,7 @@ fdl frontend
 ## requirements
 
 `NODE LTS`
-`MYSQL 8.0.20`
+`MYSQL`
 `NGINX`
 
 ## note
