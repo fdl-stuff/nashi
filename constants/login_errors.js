@@ -30,5 +30,29 @@ module.exports = {
     "LOGIN_FAILED": {
         message: "Bitte überprüfen sie ihre Email und ihr Passwort!",
         type: "login"
+    },
+    "NO_NICK": {
+        message: "Kein Spitzname wurde eingetragen.",
+        type: "nick"
+    },
+    "NICK_TOO_SHORT": {
+        message: "Ihr Spitzname ist zu kurz.",
+        type: "nick"
+    },
+    "NICK_TOO_LONG": {
+        message: "Ihr Spitzname ist zu lang.",
+        type: "nick"
+    },
+    "NICK_INVALID": {
+        message: "Ihr Spitzname kann nur Buchstaben, Nummern, Abstände und Punkte enthalten.",
+        type: "nick"
+    },
+    "REGISTER_FAILED": {
+        message: "Ihre Email wurde noch nicht Registriert, bitte wenden sie sich an einen Lernbegleiter für Hilfe.",
+        type: "register"
+    },
+    "EMAIL_USED": {
+        message: "Ihre Email wurde schon von einem anderen Account besetzt, bitte melden sie sich mit der Email an oder verwenden sie eine andere Email Addresse.",
+        type: "register"
     }
 }

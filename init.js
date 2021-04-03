@@ -1,4 +1,5 @@
 const {errorHandling, mysql, String} = require('utility');
+console.log(mysql)
 const config = require('./config.json')
 const argon2 = require('argon2'); 
 

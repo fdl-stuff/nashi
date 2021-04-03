@@ -140,11 +140,27 @@
         margin-top: 0.3rem;
         font-size: 0.8rem;
     }
+    #agb {
+        margin-top: 0.6rem;
+        display: block;
+    }
 </style>
 <div class="outer-segment">
     <div class="segment">
-        <h1 id="login-title">Anmelden</h1>
+        <h1 id="login-title">Registrieren</h1>
         <form id="login-form" novalidate method="post" action="/konto/login?redir=<%- redir %> ">
+            <div class="field">
+                <label for="email">Name</label>
+                <input tabindex="1" spellcheck="false" class="login-input" type="text" autocomplete="text" name="nick" placeholder="Dein Spitzname" value="" maxlength="32">
+                <% if (login_error && login_error.type === "nick") { %>
+                    <span class="login-error"><%= login_error.message %></span>
+                    <style>
+                        .field input[type=text][name=nick] {
+                            border: 0.2rem solid var(--error-color);
+                        }
+                    </style>
+                <% } %>
+            </div>
             <div class="field">
                 <label for="email">Email</label>
                 <input tabindex="1" spellcheck="false" class="login-input" type="email" autocomplete="email" name="email" placeholder="Deine Email Addresse" value="" maxlength="254">
@@ -160,7 +176,6 @@
             <div class="field">
                 <div class="password-label">
                     <label for="password">Passwort</label>
-                    <!-- <span><a href="/konto/forgot">Passwort vergessen?</a></span> -->
                 </div>
                 <input tabindex="2" badinput="false" spellcheck="false" class="login-input" id="password-input" type="password" autocomplete="current-password" name="password" placeholder="Dein Passwort" value="">
                 <% if (login_error && login_error.type === "password") { %>
@@ -176,10 +191,7 @@
                     Passwort anzeigen.
                 </label>
                 <br>
-                <label for="keep-logged-in" class="checkbox-toggle">
-                    <input type="checkbox" class="form-checkbox" name="keeplogin" value="true" id="keep-logged-in" tabindex="3"/>
-                    Angemeldet bleiben.
-                </label>
+                <span id="agb">Indem sie ein Konto erstellen akzeptieren sie automatisch unsere <a href="/datenschutz">Datenschutzrichtlinien</a></span>
                 <script>
                     document.getElementById("show-password").addEventListener("click", () => {
                         var pw_input = document.getElementById("password-input");
@@ -204,9 +216,9 @@
                 <span><%= login_error.message %></span>
             </div>
         <% } %>
-        <button tabindex="3" type="submit" form="login-form">Anmelden</button>
+        <button tabindex="3" type="submit" form="login-form">Registrieren</button>
         <div id="sign-up">
-            <a href="/konto/register?redir=<%= redir %> " tabindex="4">Noch kein Konto?</a>
+            <a href="/konto/login?redir=<%= redir %>" tabindex="4">Anmelden?</a>
         </div>
     </div>
 </div>

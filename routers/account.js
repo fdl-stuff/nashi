@@ -51,11 +51,12 @@ router.post('/cookie', (req, res, next) => {
 });
 router.get('/register', (req, res, next) => {
     req.data.login_error = req.query.error ? login_errors[req.query.error] : {};
-    req.data.type = "login";
-    req.data.page_title = "Login"
-    if(req.data.user.id) return res.redirect('/konto/logout?redir='+req.data.redir);
+    req.data.type = "register";
+    req.data.page_title = "Registrieren";
+    if(req.data.user.id) return res.redirect(req.data.redir);
     res.render('pages/index', req.data);
 });
+
 // router.post('/create', async (req, res, next) => {
 //     console.log(req.body);
 //     try {
