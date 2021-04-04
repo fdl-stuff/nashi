@@ -5,6 +5,7 @@
         align-items: center;
     }
     .outer-segment {
+        margin: 4rem 0;
         height: 100%;
         width: 100%;
         display: flex;
@@ -32,7 +33,7 @@
         font-weight: 500;
         padding-bottom: 0.2rem;
     }
-    .password-label {
+    .email-label {
         display: inline-flex;
         justify-content: space-between;
         width: 100%;
@@ -140,18 +141,14 @@
         margin-top: 0.3rem;
         font-size: 0.8rem;
     }
-    #agb {
-        margin-top: 0.6rem;
-        display: block;
-    }
 </style>
 <div class="outer-segment">
     <div class="segment">
         <h1 id="login-title">Registrieren</h1>
-        <form id="login-form" novalidate method="post" action="/konto/login?redir=<%- redir %> ">
+        <form id="login-form" novalidate method="post" action="/konto/register?redir=<%- redir %>">
             <div class="field">
-                <label for="email">Name</label>
-                <input tabindex="1" spellcheck="false" class="login-input" type="text" autocomplete="text" name="nick" placeholder="Dein Spitzname" value="" maxlength="32">
+                <label for="nick">Name</label>
+                <input tabindex="1" spellcheck="false" class="login-input" type="text" autocomplete="text" name="nick" placeholder="Dein Spitzname" value="" maxlength="33">
                 <% if (login_error && login_error.type === "nick") { %>
                     <span class="login-error"><%= login_error.message %></span>
                     <style>
@@ -162,8 +159,11 @@
                 <% } %>
             </div>
             <div class="field">
-                <label for="email">Email</label>
-                <input tabindex="1" spellcheck="false" class="login-input" type="email" autocomplete="email" name="email" placeholder="Deine Email Addresse" value="" maxlength="254">
+                <div class="email-label">
+                    <label for="email">Email</label>
+                    <span><a href="/meow" tabindex="1">Email registrieren?</a></span>
+                </div>
+                <input tabindex="1" spellcheck="false" class="login-input" type="email" name="email" placeholder="Deine Email Addresse" value="" maxlength="254">
                 <% if (login_error && login_error.type === "email") { %>
                     <span class="login-error"><%= login_error.message %></span>
                     <style>
@@ -174,10 +174,8 @@
                 <% } %>
             </div>
             <div class="field">
-                <div class="password-label">
-                    <label for="password">Passwort</label>
-                </div>
-                <input tabindex="2" badinput="false" spellcheck="false" class="login-input" id="password-input" type="password" autocomplete="current-password" name="password" placeholder="Dein Passwort" value="">
+                <label for="password">Passwort</label>
+                <input tabindex="2" badinput="false" spellcheck="false" class="login-input" id="password-input" type="password" name="password" placeholder="Dein Passwort" value="">
                 <% if (login_error && login_error.type === "password") { %>
                     <span class="login-error"><%= login_error.message %></span>
                     <style>
@@ -191,7 +189,10 @@
                     Passwort anzeigen.
                 </label>
                 <br>
-                <span id="agb">Indem sie ein Konto erstellen akzeptieren sie automatisch unsere <a href="/datenschutz">Datenschutzrichtlinien</a></span>
+                <label for="tos" class="checkbox-toggle">
+                    <input type="checkbox" class="form-checkbox" name="tos" value="true" id="tos" tabindex="3"/>
+                    <span>Ich habe die <a href="/agb">AGB</a> und <a href="/datenschutz" tabindex="3">Datenschutzrichtlinien</a> durchgelesen und bin mit ihnen Einverstanden.</span>
+                </label>
                 <script>
                     document.getElementById("show-password").addEventListener("click", () => {
                         var pw_input = document.getElementById("password-input");
@@ -201,19 +202,23 @@
             </div>
             <input type="hidden" name="redir" value="<%- redir %>">
         </form>
-        <% if (login_error && login_error.type === "login") { %>
+        <% if (login_error && login_error.type === "register") { %>
             <style>
                 .login-failed-container {
                     background-color: var(--error-color);
                     text-align: center;
-                    padding: 0.3rem;
+                    padding: 0.6rem;
                     margin-top: -1.5rem;
                     margin-bottom: 0.5rem;
                     border-radius: 0.2rem;
                 }
+                .login-failed-container a {
+                    color: var(--button-color);
+                    text-decoration: underline;
+                }
             </style>
             <div class="login-failed-container">
-                <span><%= login_error.message %></span>
+                <span><%- login_error.message %></span>
             </div>
         <% } %>
         <button tabindex="3" type="submit" form="login-form">Registrieren</button>

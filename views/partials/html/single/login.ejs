@@ -5,6 +5,7 @@
         align-items: center;
     }
     .outer-segment {
+        margin: 4rem 0;
         height: 100%;
         width: 100%;
         display: flex;
@@ -160,7 +161,7 @@
             <div class="field">
                 <div class="password-label">
                     <label for="password">Passwort</label>
-                    <!-- <span><a href="/konto/forgot">Passwort vergessen?</a></span> -->
+                    <span><a href="/konto/forgot" tabindex="2">Passwort vergessen?</a></span>
                 </div>
                 <input tabindex="2" badinput="false" spellcheck="false" class="login-input" id="password-input" type="password" autocomplete="current-password" name="password" placeholder="Dein Passwort" value="">
                 <% if (login_error && login_error.type === "password") { %>
@@ -194,14 +195,14 @@
                 .login-failed-container {
                     background-color: var(--error-color);
                     text-align: center;
-                    padding: 0.3rem;
+                    padding: 0.6rem;
                     margin-top: -1.5rem;
                     margin-bottom: 0.5rem;
                     border-radius: 0.2rem;
                 }
             </style>
             <div class="login-failed-container">
-                <span><%= login_error.message %></span>
+                <span><%- login_error.message %></span>
             </div>
         <% } %>
         <button tabindex="3" type="submit" form="login-form">Anmelden</button>

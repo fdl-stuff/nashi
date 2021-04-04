@@ -135,9 +135,9 @@ app.use((req, res, next) => {
             flags: 0,
         }
     };
-
-    if(req.session.user_id) {
-        mysql.$query(`SELECT * FROM users WHERE user_id = ?`, [req.session.user_id], {
+    
+    if(req.session.nick) {
+        mysql.$query(`SELECT * FROM users WHERE nick = ?`, [req.session.nick], {
             req, res, next, handler(error, result, fields, router) {
                 if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
                 if(!result[0]) return router.next(new errorHandling.SutekinaError("You are logged in with an invalid email address, please reset your cookies for this website!", 400))
@@ -173,8 +173,8 @@ app.use((req, res, next) => {
     };
     if(req.session.mode) {
         if(req.query.mode || !req.data.user.mode) req.data.user.mode = req.session.mode;
-        if(req.session.user_id) {
-            mysql.$query(`UPDATE users SET mode = ? WHERE user_id = ?`, [req.session.mode, req.session.user_id], {
+        if(req.session.nick) {
+            mysql.$query(`UPDATE users SET mode = ? WHERE nick = ?`, [req.session.mode, req.session.nick], {
                 req, res, next, handler(error, result, fields, router) {
                     if(error) return router.next(new errorHandling.SutekinaError(error.message, 500));
                     return next();
