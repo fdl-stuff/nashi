@@ -133,7 +133,7 @@
     <hr>
     <div class="article-about article-small">
         <span id="creator" title="Autor*in">
-            <img src="<%= services.image_server.domain %>/users/<%- page.creator_id %>.jpg" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';">
+            <img src="<%= services.image_server.domain %>/user/<%- page.creator_id %>?new=true" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';">
             &nbsp;<%= page.creator %>
         </span>
         &nbsp;•&nbsp;

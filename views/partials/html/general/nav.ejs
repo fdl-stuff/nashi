@@ -30,7 +30,7 @@
     <a href="/konto/login?redir=<%- url %> ">
         <div class="nav-button">
             <% if(user.id) { %> 
-                <img src="<%= services.image_server.domain %>/users/<%- user.id %>.jpg" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';"> 
+                <img src="<%= services.image_server.domain %>/user/<%- user.id %>?new=true" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';"> 
             <% } else { %>
                 <img src="/public/img/body/header/guest.svg" alt="Gast">
             <% } %>

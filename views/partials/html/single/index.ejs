@@ -41,9 +41,37 @@
         background-repeat: no-repeat; 
         background-size: cover; 
     }
+    .slideshow-title {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        opacity: 0;
+        background: rgb(0,0,0);
+        background: rgba(0, 0, 0);
+        width: 100%;
+        padding: 1rem 0.5rem;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; 
+    }
+    .slideshow-title span {
+        -webkit-user-select: none;       
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        opacity: 0;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
     /* to get margin-top height/3*2 */
     /* in theory it should just be font-size/2 but because the text doesnt fully occupy the field it has to be like this, this isnt 100% accurate but :3 */
     @media(max-width: 999px) {
+        .slideshow-title span {
+            max-width: 87vw;
+            min-width: 87vw;
+        }
         .slideshow-navigation {
             top: 50%;
             margin-top: -2rem;
@@ -52,10 +80,14 @@
             height: 3rem;
         }
         .slideshow-image-active {
-            height: 16rem;
+            height: 14rem;
         }
     }
     @media(min-width: 1000px) {
+        .slideshow-title span {
+            max-width: 910px;
+            min-width: 910px;
+        }
         .slideshow-navigation {
             top: 50%;
             margin-top: -2.66rem;
@@ -68,6 +100,12 @@
         }
     }
     .slideshow-image-active {
+        opacity: 1;
+    }
+    .slideshow-image-active div, .slideshow-image-active span {
+        opacity: 0.3;
+    }
+    .slideshow-container:hover .slideshow-image-active div, .slideshow-container:hover .slideshow-image-active span {
         opacity: 1;
     }
     .slideshow-navigation {
@@ -208,17 +246,31 @@
 
 <div class="slideshow-container">
     <% for(let i = 0; i < slideshow.length; i++ ) { %>
-        <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= slideshow[i].url %>"></div>
+        <div class="slideshow-image<% if (i === 0) { %> slideshow-image-active<% } %>" data-image="<%= `${slideshow[i].image_id}.${slideshow[i].file_format}`%>">
+            <% if (slideshow[i].title) { %>
+                <div class="slideshow-title">
+                    <span><%= slideshow[i].title %></span>
+                </div>
+            <% } %>
+        </div>
     <% } %>
-    <a class="slideshow-navigation prev"><img src="/public/img/body/prev.svg" alt=""></a>
-    <a class="slideshow-navigation next"><img src="/public/img/body/next.svg" alt=""></a>
+    <% if (!slideshow[0]) { %>
+        <div class="slideshow-image slideshow-image-active" data-image="404.banner?new=true">
+            <div class="slideshow-title">
+                <span>404, no index banners were configured.</span>
+            </div>
+        </div>
+    <% } else { %>
+        <a class="slideshow-navigation prev"><img src="/public/img/body/prev.svg" alt=""></a>
+        <a class="slideshow-navigation next"><img src="/public/img/body/next.svg" alt=""></a>
+    <% } %>
     <!-- &#10094;
     &#10095; -->
 </div>
 
 <script>
     var slideImg=document.getElementsByClassName('slideshow-image');
-    for(var i = 0; i < slideImg.length; i++) {slideImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/article_banners/" + slideImg[i].dataset.image + "')";}
+    for(var i = 0; i < slideImg.length; i++) {slideImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + slideImg[i].dataset.image + "?new=true')";}
 </script>
 
 <%- include('../../../partials/js/changeslide') %> 

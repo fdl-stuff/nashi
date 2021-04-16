@@ -13,22 +13,18 @@ const routers = require("./routers");
 try {
     app.get('/', (req, res, next) => {
         req.data.type = "index";
-        req.data.page_title = "Startseite"
-        req.data.slideshow = [{
-            page_id: 1,
-            url: "1.png",
-            title: "BOOS LOL BOOBS"
-        },
-        {
-            page_id: 2,
-            url: "6.png",
-            title: "COICOCKKCOCK XD :;§) SMIKLE :)"
-        }];
-        mysql.$query('SELECT pc.title, p.page_type, i.image_id, i.file_format, pc.last_update FROM pages p LEFT JOIN page_content pc on p.page_content_id = pc.page_content_id or p.page_id = pc.page_id and p.page_content_id is null LEFT JOIN images i ON i.image_id = pc.image_id WHERE p.hidden = 0 AND p.page_type NOT IN ("datenschutz", "impressum", "kontakt") ORDER BY pc.last_update desc LIMIT 6', [], {
-        req, res, next, async handler(error, result, fields, router) {    
+        req.data.page_title = "Startseite";
+        mysql.$query('SELECT image_id, file_format FROM images WHERE type = "temp_banner" AND hidden = false ORDER BY type_id', [], {
+        req, res, next, async handler(error, result, fields, router) { 
             if(error) return next(new errorHandling.SutekinaError(error.message, 500));
-            req.data.recent_pages = result;
-            res.render('pages/index', req.data);
+            req.data.slideshow = result;
+            //to set a title use req.data.slideshow[i].title if you want to have a title, NOTE: titles arent fully supported.
+            mysql.$query('SELECT pc.title, p.page_type, i.image_id, i.file_format, pc.last_update FROM pages p LEFT JOIN page_content pc on p.page_content_id = pc.page_content_id or p.page_id = pc.page_id and p.page_content_id is null LEFT JOIN images i ON i.image_id = pc.image_id WHERE p.hidden = 0 AND p.page_type NOT IN ("datenschutz", "impressum", "kontakt") ORDER BY pc.last_update desc LIMIT 6', [], {
+            req, res, next, async handler(error, result, fields, router) {    
+                if(error) return next(new errorHandling.SutekinaError(error.message, 500));
+                req.data.recent_pages = result;
+                res.render('pages/index', req.data);
+            }});
         }});
     });
     for(i = 0; i < routers.length; i++) {
