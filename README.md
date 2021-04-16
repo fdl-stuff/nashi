@@ -4,7 +4,7 @@ fdl frontend
 ## requirements
 
 `NODE LTS`
-`MYSQL 8.0.20`
+`MYSQL`
 `NGINX`
 
 ## note
@@ -17,7 +17,7 @@ and you will most likely encounter the error "ER_NOT_SUPPORTED_AUTH_MODE" but th
 
 otherwise if you have any other questions or need information on something [#18](https://github.com/fdl-stuff/nashi/issues/18) might have your answer, if it doesn't simply create a new issue.
 
-ON LINUX: if you are installing nodejs DONT install it through your package manager, that version is most likely outdated and incompatible. Use [Node Version Manager](https://github.com/nvm-sh/nvm#installing-and-updating)!!
+ON LINUX: if you are installing nodejs DONT install it through your package manager, that version is most likely outdated and incompatible. Use [NVM](https://github.com/nvm-sh/nvm#installing-and-updating) or [tj/n](https://github.com/tj/n)!!
 
 ## default ports
 
@@ -34,6 +34,7 @@ ON LINUX: if you are installing nodejs DONT install it through your package mana
 git clone https://github.com/fdl-stuff/nashi/ nashi
 cd nashi 
 npm install
+git submodule init && git submodule update
 
 # use some editor to edit the sample.config.json to your liking and then change the name to config.json
 # once you did that proceed with the rest :3

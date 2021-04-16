@@ -1,6 +1,9 @@
 <style>
     .outer-segment {
+        padding: 1rem;
         margin-bottom: 2rem;
+        background-color: var(--fdl-dark-background);
+        align-self: center;
     }
     @media(max-width: 999px) {
         .article-banner {
@@ -8,10 +11,10 @@
         }
         .article-heading {
             font-size: 2rem;
-            margin-bottom: 1rem;
         }
         .outer-segment {
-            padding: 1rem;
+            max-width: 87vw;
+            min-width: 87vw;
         }
     }
     @media(max-width: 600px) {
@@ -25,10 +28,16 @@
         }
         .article-heading {
             font-size: 3rem;
-            margin-bottom: 1.5rem;
+        }
+        main {
+            max-width: 100%;
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .outer-segment {
-            padding: 1rem 3rem;
+            max-width: 910px;
+            min-width: 910px;
         }
     }
     .article-content img {
@@ -37,11 +46,12 @@
     }
     .outer-segment hr {
         margin: 1rem 0;
+        background: var(--fdl-secondary);
     }
     .article-heading {
-        color: var(--primary-color);
         text-align: center;
         word-break: break-word;
+        margin: 1rem 0rem;
     }
     .article-small {
         font-size: 1.1rem;
@@ -96,7 +106,8 @@
         background-repeat: no-repeat;
         background-size: cover;
         transition: all ease 0.5s;
-        margin-bottom: 1.5rem;
+        margin-bottom: -1rem;
+        z-index: 1;
     }
     #creator img {
         height: 1.2rem;
@@ -120,12 +131,12 @@
         padding: 0 1rem;
     }
 </style>
-
+<% if(page.image_id) { %>
+    <div class="article-banner" data-image="<%= page.image_id %>.<%= page.file_format %>?new=true&size=l"></div>
+<% } %>
 <div class="outer-segment">
+
     <h1 class="article-heading"><%= page.title %></h2>
-    <% if(page.image_id) { %>
-        <div class="article-banner" data-image="<%= page.image_id %>.<%= page.file_format %>?new=true"></div>
-    <% } %>
     <script>
         var articleImg=document.getElementsByClassName('article-banner');for(var i = 0; i < articleImg.length; i++) {articleImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + articleImg[i].dataset.image + "')";}
     </script>
@@ -133,7 +144,7 @@
     <hr>
     <div class="article-about article-small">
         <span id="creator" title="Autor*in">
-            <img src="<%= services.image_server.domain %>/users/<%- page.creator_id %>.jpg" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';">
+            <img src="<%= services.image_server.domain %>/user/<%- page.creator_id %>?new=true&size=xxs" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';">
             &nbsp;<%= page.creator %>
         </span>
         &nbsp;•&nbsp;

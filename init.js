@@ -1,4 +1,5 @@
-const {errorHandling, mysql, String} = require('utility');
+const {errorHandling, mysql, String} = require('./utility');
+
 const config = require('./config.json')
 const argon2 = require('argon2'); 
 
@@ -30,7 +31,6 @@ let connection;
 
 handleDisconnect = () => {
     connection = mysql.createConnection(db_config);
-
     connection.connect(function(err) {
         if(err) {
             console.log('error when connecting to db:', err);
@@ -77,8 +77,14 @@ const sessionStore = new MySQLStore(session_config);
 
 const app = require('./server');
 
-app.use('/public', express.static('public'));
+app.enable('trust proxy');
+app.disable('case sensitive routing');
+app.disable('strict routing');
+app.disable('x-powered-by');
+app.set('etag', 'strong');
+app.set('view engine', 'ejs');
 
+app.use('/public', express.static('public'));
 
 //require middleware
 const middleware = {
@@ -107,6 +113,7 @@ app.use(middleware.expressSession({
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
+    // proxy: true,
     cookie: {
         domain: config.services.nashi.domain.split("://")[1],
         maxAge: 315569259747,
@@ -128,9 +135,8 @@ app.use((req, res, next) => {
             flags: 0,
         }
     };
-
-    if(req.session.user_id) {
-        mysql.$query(`SELECT * FROM users WHERE user_id = ?`, [req.session.user_id], {
+    if(req.session.nick) {
+        mysql.$query(`SELECT * FROM users WHERE nick = ?`, [req.session.nick], {
             req, res, next, handler(error, result, fields, router) {
                 if(error) return router.next(new errorHandling.SutekinaError(error.message, 400));
                 if(!result[0]) return router.next(new errorHandling.SutekinaError("You are logged in with an invalid email address, please reset your cookies for this website!", 400))
@@ -166,8 +172,8 @@ app.use((req, res, next) => {
     };
     if(req.session.mode) {
         if(req.query.mode || !req.data.user.mode) req.data.user.mode = req.session.mode;
-        if(req.session.user_id) {
-            mysql.$query(`UPDATE users SET mode = ? WHERE user_id = ?`, [req.session.mode, req.session.user_id], {
+        if(req.session.nick) {
+            mysql.$query(`UPDATE users SET mode = ? WHERE nick = ?`, [req.session.mode, req.session.nick], {
                 req, res, next, handler(error, result, fields, router) {
                     if(error) return router.next(new errorHandling.SutekinaError(error.message, 500));
                     return next();
@@ -176,12 +182,6 @@ app.use((req, res, next) => {
         } else return next();
     } else return next();
 });
-
-app.disable('case sensitive routing');
-app.disable('strict routing');
-app.disable('x-powered-by');
-app.set('etag', 'strong');
-app.set('view engine', 'ejs');
 
 module.exports = {
     errorHandling,
