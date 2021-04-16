@@ -135,7 +135,6 @@ app.use((req, res, next) => {
             flags: 0,
         }
     };
-    
     if(req.session.nick) {
         mysql.$query(`SELECT * FROM users WHERE nick = ?`, [req.session.nick], {
             req, res, next, handler(error, result, fields, router) {
