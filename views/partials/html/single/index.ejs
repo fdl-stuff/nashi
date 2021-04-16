@@ -16,9 +16,8 @@
     }
     @media(min-width: 1000px) {
         main {
-            max-width: 95vw;
-            min-width: 95vw;
-            background-color: var(--fdl-dark-background);
+            max-width: 100%;
+            min-width: 100%;
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -270,7 +269,7 @@
 
 <script>
     var slideImg=document.getElementsByClassName('slideshow-image');
-    for(var i = 0; i < slideImg.length; i++) {slideImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + slideImg[i].dataset.image + "?new=true')";}
+    for(var i = 0; i < slideImg.length; i++) {slideImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + slideImg[i].dataset.image + "?new=true&size=l')";}
 </script>
 
 <%- include('../../../partials/js/changeslide') %> 
@@ -307,7 +306,7 @@
                 <a class="rp-page rp-page-<%= i %> " href="/<%= `${recent_pages[i].page_type}/${recent_pages[i].title}` %>" title="<%= recent_pages[i].title %>">
                     <%var monthDay = new Array(12);monthDay[0] = "JAN";monthDay[1] = "FEB";monthDay[2] = "MÄR";monthDay[3] = "APR";monthDay[4] = "MAI";monthDay[5] = "JUN";monthDay[6] = "JUL";monthDay[7] = "AUG";monthDay[8] = "SEP";monthDay[9] = "OKT";monthDay[10] = "NOV";monthDay[11] = "DEZ";%>
                     <%let page_date = new Date(recent_pages[i].last_update); page_date = `${page_date.getDate()} ${monthDay[page_date.getMonth()]} ${page_date.getFullYear().toString().substring(2)}`;%>
-                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "banner" %>?new=true"></div>
+                    <div class="rp-page-image" data-image="<%= recent_pages[i].image_id || "404" %>.<%= recent_pages[i].file_format || "banner" %>?new=true&size=s"></div>
                     <h2 class="rp-page-title"><%= recent_pages[i].title %></h2>
                     <div class="rp-page-date"><%= page_date %> </div>
                 </a>
