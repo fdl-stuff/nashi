@@ -31,7 +31,12 @@ try {
         app.use(routers[i].url, routers[i].export);
     }
     app.all('/error', (req, res, next) => {
-        throw new errorHandling.SutekinaStatusError(420)
+        if(req.session.error) {
+            let error = req.session.error;
+            // delete req.session.error;
+            console.log(error)
+            throw error;
+        } else throw new errorHandling.SutekinaStatusError(420)
     });
 } catch (err) {
     app.use((req, res, next) => next(err));
@@ -44,7 +49,7 @@ const debug = require("debug")("NASHI:ERROR");
 app.use((err, req, res, next) => {
     debug(err);
     body = {
-        code: err.status || err.statusCode || 500,
+        code: err.status || err.statusCode || err.code || 500,
         message: err.message || err
     };
     req.data.page_title = "Error"

@@ -1,0 +1,51 @@
+<style>
+    .file-container {
+        position: relative;
+    }
+    #file-output {
+        
+        filter: brightness(75%);
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+    #file-symbol {
+        opacity: 0.6;
+        top: 25px;
+        left: 25px;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url("/public/img/body/folder.svg");
+    }
+</style>
+
+<form method="post" enctype="multipart/form-data" action="<%= services.image_server.domain %>/user/<%= user.id %> ">
+    <input type="file" name="file" id="file-input" style="display: none;" accept="image/png, image/jpeg">
+    <div class="file-container">
+        <img id="file-output" src="<%= services.image_server.domain %>/user/<%- user.id %>?size=xs" />
+        <span id="file-symbol"></span>
+    </div>
+    <script>
+        var fileInput = document.getElementById('file-input');
+        var fileOutput = document.getElementById('file-output');
+        var fileContainer = document.getElementsByClassName('file-container')[0]
+        
+        var loadFile = function(event) {
+            fileOutput.src = URL.createObjectURL(event.target.files[0]);
+            fileOutput.onload = function() {
+                URL.revokeObjectURL(fileOutput.src) // free memory
+            }
+        };
+        fileInput.addEventListener("change", function(event) {
+            loadFile(event);
+        });
+        fileContainer.addEventListener("click", function(event) {
+            fileInput.click();
+        });
+    </script>
+    <input type="submit" value="Submit">
+</form>

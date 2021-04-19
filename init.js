@@ -58,7 +58,7 @@ flush privileges;
 */
 const MySQLStore = require('express-mysql-session')(expressSession);
 
-let session_config = Object.assign(db_config, {
+let session_config = Object.assign({}, db_config, {
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000,
@@ -125,7 +125,7 @@ app.use(middleware.expressSession({
 
 app.use((req, res, next) => {
     req.data = {
-        redir: req.query.redir || '/',
+        redir: req.query.redir || req.session.redir || '/',
         page_title: undefined,
         url: req.path,
         services: config.services,
@@ -135,6 +135,9 @@ app.use((req, res, next) => {
             flags: 0,
         }
     };
+
+    req.session.redir = req.data.redir;
+
     if(req.session.nick) {
         mysql.$query(`SELECT * FROM users WHERE nick = ?`, [req.session.nick], {
             req, res, next, handler(error, result, fields, router) {
@@ -142,6 +145,7 @@ app.use((req, res, next) => {
                 if(!result[0]) return router.next(new errorHandling.SutekinaError("You are logged in with an invalid email address, please reset your cookies for this website!", 400))
                 req.data.user.mode = result[0].mode;
                 req.data.user.id = result[0].user_id;
+                req.session.user_id = result[0].user_id;
                 req.data.user.language = result[0].language;
                 req.data.user.flags = result[0].flags;
                 next();
