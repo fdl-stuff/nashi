@@ -55,6 +55,7 @@ mysql -h localhost -u root ringo -p < full-preset.sql
 cd ..
 
 # image server:
+# i had some issues installing sharp hmm my solution was to go into root acc and install it their but it was dumb, fuck that hoe.
 git clone https://github.com/fdl-stuff/image-server image-server
 cd image-server
 npm install

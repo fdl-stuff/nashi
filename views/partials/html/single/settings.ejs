@@ -1,0 +1,101 @@
+<style>
+    .file-upload-form {
+        max-width: 15rem;
+        margin: 1rem auto;
+    }
+    .file-container {
+        width: 15rem;
+        height: 15rem;
+    }
+    .cr-boundary {
+        border-radius: 0.5rem;
+    }
+    .file-button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .file-button-container {
+        position: relative;
+        width: 100%;
+        border-radius: 0.5rem;
+        background-color: var(--primary-color);
+        text-align: center;
+        padding: 0.5rem;
+        margin: 0.5rem 0.4rem;
+    }
+    .file-input {
+        display: none;
+    }
+    .file-button {
+        margin: 0px;
+        padding: 0px;
+        appearance: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        word-wrap: break-word;
+    }
+    .file-button:hover {
+        cursor: pointer;
+    }
+</style>
+
+<form class="file-upload-form" method="post" enctype="application/x-www-form-urlencoded	" action="<%= services.image_server.domain %>/user/<%= user.id %> ">
+    <div class="file-container">
+        <img class="file-output" src="<%= services.image_server.domain %>/user/<%- user.id %>?size=m" />
+    </div>
+    <div class="file-button-group">
+        <div class="file-button-container">
+            <span>Bild auswählen</span>
+            <input type="button" class="file-button">
+            <input type="file" class="file-input" accept="image/png, image/jpeg">
+        </div>
+        <div class="file-button-container">
+            <span>Speichern</span>
+            <input class="file-button file-upload" type="button" value="test">
+        </div>
+    </div>
+    <input type="hidden" class="file" name="file">
+    <script>
+        var file = {
+            input: document.getElementsByClassName('file-input')[0],
+            output: document.getElementsByClassName('file-output')[0],
+            upload: document.getElementsByClassName("file-upload")[0],
+            form: document.getElementsByClassName('file-upload-form')[0]
+        };
+
+        file.croppie = new Croppie(file.output, {
+            enableExif: false,
+            showZoomer: false,
+            viewport: {
+                type: 'circle'
+            } 
+        });
+
+        var loadFile = function(event) {
+            var croppieImage = document.getElementsByClassName('cr-image')[0];
+            file.croppie.bind({
+                url: URL.createObjectURL(event.target.files[0])
+            });
+            croppieImage.onload = function() {
+                URL.revokeObjectURL(croppieImage.src); // free memory
+            };
+        };
+        file.input.addEventListener("change", function(event) {
+            loadFile(event);
+        });
+        file.input.parentElement.addEventListener("click", function(event) {
+            file.input.click();
+        });
+        file.upload.addEventListener("click", function(event) {
+            file.croppie.result({type:'base64',circle:false, size: {width: '300', height: '300'}}).then(function(resp) {
+                document.getElementsByClassName('file')[0].value = resp;
+                file.form.submit();
+            })
+        });
+    </script>
+</form>

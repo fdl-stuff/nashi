@@ -5,7 +5,6 @@
     <span onclick="openDropdown()" id="inner-dropdown-btn" unselectable="on">☰</span>
 
     <div id="navDropdown" class="dropdown-content dropdown-inactive">
-
         <div class="center inner-wrapper">
             <ul id="navbar">
                 <a href="/paedagogik"><li>Pädagogik</li></a>
@@ -20,20 +19,32 @@
                 </a>
             </ul>
         </div>
-
     </div>
 
 </div>
 <%- include('../../../partials/js/dropdown') %> 
 
 <div class="right inner-wrapper">
-    <a href="/konto/login?redir=<%- url %> ">
-        <div class="nav-button">
-            <% if(user.id) { %> 
-                <img src="<%= services.image_server.domain %>/user/<%- user.id %>?new=true&size=xxs" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';"> 
-            <% } else { %>
-                <img src="/public/img/body/header/guest.svg" alt="Gast">
-            <% } %>
+
+    <% if (!user.id) { %>
+        <a href="/konto/login?redir=<%- url %>">
+    <% } %>
+            <div class="nav-button login-button">
+                <% if(user.id) { %> 
+                    <img src="<%= services.image_server.domain %>/user/<%- user.id %>?size=xxs" onerror="if (this.src != '/public/img/body/header/unknown.svg') this.src = '/public/img/body/header/unknown.svg';"> 
+                <% } else { %>
+                    <img src="/public/img/body/header/guest.svg" alt="Gast">
+                <% } %>
+            </div> 
+    <% if (!user.id) { %>
+        </a>
+    <% } else { %>
+        <div class="login-dropdown">
+            <ul>
+                <a href="/konto/settings"><li>Einstellungen</li></a>
+                <hr>
+                <a href="/konto/logout?redir=<%- url %>"><li>Abmelden</li></a>
+            </ul>
         </div>
-    </a>
+    <% } %>
 </div>

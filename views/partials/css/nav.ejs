@@ -5,7 +5,10 @@
             justify-content: center;
             align-items: center;
         }
-
+        #navbar hr {
+            margin: 0rem;
+            border-width: 0.05rem;
+        }
         #dropdown-btn #inner-dropdown-btn {
             width: 5rem;
             text-align: center;
@@ -35,32 +38,38 @@
         nav .show {
             top: 4rem;
         }
-        nav ul hr {
-            margin: 0.5rem 2rem;
-            border-width: 0.1rem;
+        #navbar hr {
+            margin: 0rem;
+            border-width: 0.05rem;
         }
-        nav .dropdown-content {
+        .dropdown-content {
             min-width: 100%;
             position: absolute;
             width: auto;
             border-bottom-color: var(--primary-color);
-            border-bottom-width: 0.15rem;
             border-bottom-style: solid;
-            padding: 0.5rem 0;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background-color: var(--fdl-background);
             transition: top 0.2s, opacity 0.2s;
         }
-        nav ul {
+        #navbar {
             text-align: left;
         }
-        nav ul li {
+        #navbar a {
+            display: block;
             font-weight: 600;
-            margin: 0 2.5rem;
-            padding-right: 1rem;
+            padding: 0.8rem 2.5rem;
             font-size: 1.1rem;
+        }
+        #navbar a:hover,
+        #navbar a:focus {
+            background: var(--primary-color);
+        }
+        #navbar a:hover li,
+        #navbar a:focus li {
+            color: var(--button-color);
         }
         nav #dropdown-btn span:hover, nav #dropdown-btn span:focus {
             opacity: 0.8;
@@ -92,14 +101,73 @@
         #navbar {
             flex-direction: row;
         }
+        #navbar a:hover li,
+        #navbar a:focus li {
+            opacity: 0.8;
+            top: -0.05rem;
+        }
+    }
+    .login-dropdown {
+        top: 3.5rem;
+        opacity: 0;
+        pointer-events: none;
+        right: 0;
+        min-width: 10vw;
+        position: absolute;
+        width: auto;
+        border-bottom-color: var(--primary-color);
+        border-bottom-style: solid;
+        border-left-color: var(--primary-color);
+        border-left-style: solid;
+        border-radius: 0 0 0 0.5rem;
+        background-color: var(--fdl-background);
+        transition: top 0.2s, opacity 0.2s;
+    }
+    .login-dropdown-active {
+        top: 4rem;
+        opacity: 1;
+        pointer-events: all;
+    }
+    .login-dropdown hr {
+        margin: 0rem;
+    }
+    .login-dropdown hr {
+        margin: 0rem;
+        border-width: 0.05rem;
+    }
+    .login-dropdown ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    .login-dropdown a {
+        display: block;
+        padding: 0.8rem 0.8rem;
+        text-align: left;
+    }
+    .nav-button:hover {
+        cursor: pointer;
+    }
+    .login-dropdown a:hover,
+    .login-dropdown a:focus {
+        background: var(--primary-color);
+    }
+    .login-dropdown a:hover li,
+    .login-dropdown a:focus li {
+        color: var(--button-color);
+    }
+    .login-dropdown li {
+        margin: 0rem;
+        margin-right: 2rem;
     }
     .nav-wrapper {
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 100;
     }
-
     nav  {
         background-color: var(--fdl-background);
         box-shadow: 0 1rem 1rem -1rem var(--fdl-shadow);
@@ -139,11 +207,6 @@
         color: currentColor;
         cursor: pointer;
     }
-    nav ul a:hover li,
-    nav ul a:focus li {
-        opacity: 0.8;
-        top: -0.05rem;
-    }
     nav .nav-button {
         height: 3rem;
         width: 4rem;
@@ -175,6 +238,7 @@
         padding: 0.15rem;
     }
     nav .nav-button img {
+        object-fit: cover;
         margin: 0 1rem;
         height: 2rem;
         width: 2rem;
@@ -189,11 +253,5 @@
 
     #header-text {
         font-weight: 700;
-    }   
-    /* The sticky class is added to the navbar with JS when it reaches its scroll position */
-    /* .sticky { 
-        position: sticky;
-        top: 0;
-        width: 100%;
-    } */
+    }
 </style>

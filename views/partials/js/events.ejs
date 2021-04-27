@@ -1,0 +1,7 @@
+<script>
+    document.body.addEventListener('error', function(event) {
+        if(event.target.matches("img")) {
+            event.target.src = '/public/img/body/header/unknown.svg';
+        }
+    }, true);
+</script>
