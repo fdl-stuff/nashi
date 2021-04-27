@@ -125,7 +125,7 @@ app.use(middleware.expressSession({
 
 app.use((req, res, next) => {
     req.data = {
-        redir: req.query.redir || req.session.redir || '/',
+        redir: req.query.redir || ((req.session.redir != req.originalUrl.split('?')[0]) ? false : req.session.redir) || '/',
         page_title: undefined,
         url: req.path,
         services: config.services,
@@ -145,9 +145,9 @@ app.use((req, res, next) => {
                 if(!result[0]) return router.next(new errorHandling.SutekinaError("You are logged in with an invalid email address, please reset your cookies for this website!", 400))
                 req.data.user.mode = result[0].mode;
                 req.data.user.id = result[0].user_id;
-                req.session.user_id = result[0].user_id;
                 req.data.user.language = result[0].language;
                 req.data.user.flags = result[0].flags;
+                req.session.user_id = result[0].user_id;
                 next();
             }
         });

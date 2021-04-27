@@ -27,16 +27,13 @@ try {
             }});
         }});
     });
-    for(i = 0; i < routers.length; i++) {
-        app.use(routers[i].url, routers[i].export);
-    }
+    routers.map(r => app.use(r.url, r.export));
     app.all('/error', (req, res, next) => {
         if(req.session.error) {
             let error = req.session.error;
-            // delete req.session.error;
-            console.log(error)
+            delete req.session.error;
             throw error;
-        } else throw new errorHandling.SutekinaStatusError(420)
+        } else next();
     });
 } catch (err) {
     app.use((req, res, next) => next(err));
