@@ -145,7 +145,7 @@
 <div class="outer-segment">
     <div class="segment">
         <h1 id="login-title">Registrieren</h1>
-        <form id="login-form" novalidate method="post" action="/konto/register?redir=<%- redir %>">
+        <form id="login-form" novalidate method="post" action="/konto/register">
             <div class="field">
                 <label for="nick">Name</label>
                 <input tabindex="1" spellcheck="false" class="login-input" type="text" autocomplete="text" name="nick" placeholder="Dein Spitzname" value="" maxlength="33">
@@ -200,7 +200,6 @@
                     }, false);
                 </script>
             </div>
-            <input type="hidden" name="redir" value="<%- redir %>">
         </form>
         <% if (login_error && login_error.type === "register") { %>
             <style>

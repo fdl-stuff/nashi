@@ -145,7 +145,7 @@
 <div class="outer-segment">
     <div class="segment">
         <h1 id="login-title">Anmelden</h1>
-        <form id="login-form" novalidate method="post" action="/konto/login?redir=<%- redir %> ">
+        <form id="login-form" novalidate method="post" action="/konto/login">
             <div class="field">
                 <label for="email">Email</label>
                 <input tabindex="1" spellcheck="false" class="login-input" type="email" autocomplete="email" name="email" placeholder="Deine Email Addresse" value="" maxlength="254">
@@ -188,7 +188,6 @@
                     }, false);
                 </script>
             </div>
-            <input type="hidden" name="redir" value="<%- redir %>">
         </form>
         <% if (login_error && login_error.type === "login") { %>
             <style>
@@ -202,12 +201,12 @@
                 }
             </style>
             <div class="login-failed-container">
-                <span><%- login_error.message %></span>
+                <span><%= login_error.message %></span>
             </div>
         <% } %>
         <button tabindex="3" type="submit" form="login-form">Anmelden</button>
         <div id="sign-up">
-            <a href="/konto/register?redir=<%= redir %> " tabindex="4">Noch kein Konto?</a>
+            <a href="/konto/register?redir=<%= redir %>" tabindex="4">Noch kein Konto?</a>
         </div>
     </div>
 </div>

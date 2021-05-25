@@ -140,7 +140,7 @@
     <script>
         var articleImg=document.getElementsByClassName('article-banner');for(var i = 0; i < articleImg.length; i++) {articleImg[i].style.backgroundImage = "url('<%= services.image_server.domain %>/" + articleImg[i].dataset.image + "')";}
     </script>
-    <span class="article-content article-small"><%- page.content %></span>
+    <span class="article-content article-small"><%= page.content %></span>
     <hr>
     <div class="article-about article-small">
         <span id="creator" title="Autor*in">
@@ -159,17 +159,19 @@
 <script>
     var created_at = document.getElementById("article_date").innerText;
     document.getElementById("article_date").innerText = new Date(created_at).toLocaleString("de-DE", {dateStyle: "full", timeStyle: "short"});
+
+    var converter = new showdown.Converter();
+    converter.setOption("simplifiedAutoLink", true);
+    converter.setOption("strikethrough", true);
+    converter.setOption("tables", true);
+    converter.setOption("tasklists", true);
+    converter.setOption("simpleLineBreaks", true);
+    converter.setOption("requireSpaceBeforeHeadingText", false);
+    converter.setOption("emoji", true);
+    converter.setOption("noHeaderId", true);
+    converter.setOption("excludeTrailingPunctuationFromURLs", true);
+    converter.setOption("parseImgDimension", true);
+
+    var articleContent = document.getElementsByClassName("article-content")[0];
+    articleContent.innerHTML = converter.makeHtml(articleContent.innerHTML);
 </script>
-
-
-<!-- TextRow {
-    page_id: 2,
-    user_id: 1,
-    page_type: 'artikel',
-    page_content_id: 2,
-    hidden: 0,
-    created_at: 2020-12-22T10:03:15.000Z,
-    title: 'Feuer in Lübeck zerstört Bauwagen und Garage',
-    content: 'Im Falkenhusener Weg in Lübeck ist es am Sonnabendmorgen zu einem Feuer in einem Bauwagen gekommen. Der Brand griff auf eine Garage über, zwischenzeitlich war auch ein Wohnhaus in Gefahr.',
-    last_update: 2020-12-22T10:03:15.000Z
-  } -->

@@ -1,4 +1,4 @@
-const {express, errorHandling, markdown, mysql} = require('../init');
+const {express} = require('../init');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {

@@ -8,6 +8,7 @@
         height: 15rem;
     }
     .cr-boundary {
+        user-select: none;
         border-radius: 0.5rem;
     }
     .file-button-group {
@@ -22,25 +23,26 @@
         background-color: var(--primary-color);
         text-align: center;
         padding: 0.5rem;
-        margin: 0.5rem 0.4rem;
+        margin: 0.5rem 0rem;
+    }
+    .file-button-container:hover,
+    .file-button-container:focus {
+        cursor: pointer;
+        opacity: 0.8;
+        top: -0.1rem;
+    }
+    .file-button-container span {
+        user-select: none;
     }
     .file-input {
         display: none;
     }
-    .file-button {
-        margin: 0px;
-        padding: 0px;
-        appearance: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        word-wrap: break-word;
+    .dragover .file-container {
+        border-radius: 0.5rem;
+        box-shadow: 0rem 0rem 0rem 0.25rem var(--fdl-secondary);
     }
-    .file-button:hover {
-        cursor: pointer;
+    .dragover * {
+        pointer-events: none;
     }
 </style>
 
@@ -51,12 +53,10 @@
     <div class="file-button-group">
         <div class="file-button-container">
             <span>Bild auswählen</span>
-            <input type="button" class="file-button">
             <input type="file" class="file-input" accept="image/png, image/jpeg">
         </div>
-        <div class="file-button-container">
+        <div class="file-button-container file-upload">
             <span>Speichern</span>
-            <input class="file-button file-upload" type="button" value="test">
         </div>
     </div>
     <input type="hidden" class="file" name="file">
@@ -76,17 +76,39 @@
             } 
         });
 
-        var loadFile = function(event) {
+        var loadFile = function(target) {
             var croppieImage = document.getElementsByClassName('cr-image')[0];
             file.croppie.bind({
-                url: URL.createObjectURL(event.target.files[0])
+                url: URL.createObjectURL(target.files[0])
             });
             croppieImage.onload = function() {
                 URL.revokeObjectURL(croppieImage.src); // free memory
             };
         };
+        // this code isn't very beautiful but it's necessary for the dragover shit.
+        var lastenter;
+
+        window.addEventListener('dragenter', function(event) {
+            lastenter = event.target;
+            document.body.classList.add('dragover'); 
+        });
+        window.addEventListener('dragleave', function(event) { 
+            if(lastenter === event.target) {
+                document.body.classList.remove('dragover');
+            }
+        });
+        window.addEventListener('dragover', function(event) {
+            event.preventDefault();
+        });
+        window.addEventListener('drop', function(event) {
+            event.preventDefault();
+            file.input.files = event.dataTransfer.files;
+            document.body.classList.remove('dragover');
+            loadFile(file.input);
+        });
+
         file.input.addEventListener("change", function(event) {
-            loadFile(event);
+            loadFile(event.target);
         });
         file.input.parentElement.addEventListener("click", function(event) {
             file.input.click();

@@ -1,4 +1,4 @@
-const {express, errorHandling, markdown, mysql} = require('../init');
+const {express, errorHandling, mysql} = require('../init');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -25,7 +25,6 @@ router.get('/:query', (req, res, next) => {
             result[0].content = result[0].content.replace(/(?<!\\)\\n/gm, "\n")
             req.data.page = result[0];
             req.data.page_title = result[0].title;
-            req.data.page.content = markdown.makeHtml(req.data.page.content);
             res.render("pages/index", req.data);
         }
     });

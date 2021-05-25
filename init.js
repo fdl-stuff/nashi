@@ -3,20 +3,6 @@ const {errorHandling, mysql, String} = require('./utility');
 const config = require('./config.json')
 const argon2 = require('argon2'); 
 
-const showdown = require('showdown'),
-markdown = new showdown.Converter();
-
-markdown.setOption("simplifiedAutoLink", true);
-markdown.setOption("strikethrough", true);
-markdown.setOption("tables", true);
-markdown.setOption("tasklists", true);
-markdown.setOption("simpleLineBreaks", true);
-markdown.setOption("requireSpaceBeforeHeadingText", false);
-markdown.setOption("emoji", true);
-markdown.setOption("noHeaderId", true);
-markdown.setOption("excludeTrailingPunctuationFromURLs", true);
-markdown.setOption("parseImgDimension", true)
-
 const db_config = {
     host : config.mysql.host,
     user : config.mysql.user,
@@ -125,7 +111,12 @@ app.use(middleware.expressSession({
 
 app.use((req, res, next) => {
     req.data = {
-        redir: req.query.redir || ((req.session.redir != req.originalUrl.split('?')[0]) ? false : req.session.redir) || '/',
+        // this line means
+        // if req.query.redir is set (e.g the url includes for example ?redir=${anyUrl}) then that specific url will be set as redir,
+        // if req.session.redir and the current path are the same then set it to '/'.
+        // if req.session.redir is not the same as the current path then set the redir to the req.session.redir,
+        // if req.session.redir is unset and therefore the current path isnt the same as req.session.redir then set it to '/' 
+        redir: (req.query.redir || ((req.session.redir === req.originalUrl.split('?')[0]) ? '/' : req.session.redir || '/' )),
         page_title: undefined,
         url: req.path,
         services: config.services,
@@ -135,9 +126,7 @@ app.use((req, res, next) => {
             flags: 0,
         }
     };
-
     req.session.redir = req.data.redir;
-
     if(req.session.nick) {
         mysql.$query(`SELECT * FROM users WHERE nick = ?`, [req.session.nick], {
             req, res, next, handler(error, result, fields, router) {
@@ -194,6 +183,5 @@ module.exports = {
     app,
     argon2,
     express,
-    markdown,
     middleware
 }

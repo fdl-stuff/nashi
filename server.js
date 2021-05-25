@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
     debug(err);
     body = {
         code: err.status || err.statusCode || err.code || 500,
-        message: err.message || err
+        message: err.message.code || err.message || err
     };
     req.data.page_title = "Error"
     if(!req.data) req.data = {
@@ -59,6 +59,7 @@ app.use((err, req, res, next) => {
             flags: 0
         }
     };
+    console.log(err)
     req.data.type = "error";
     req.data.error = body;
     res.statusMessage = errorHandling.ErrorStatusCodes[body.code];

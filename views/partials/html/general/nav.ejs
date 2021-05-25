@@ -27,7 +27,7 @@
 <div class="right inner-wrapper">
 
     <% if (!user.id) { %>
-        <a href="/konto/login?redir=<%- url %>">
+        <a href="/konto/login?redir=<%= url %>">
     <% } %>
             <div class="nav-button login-button">
                 <% if(user.id) { %> 
@@ -43,7 +43,7 @@
             <ul>
                 <a href="/konto/settings"><li>Einstellungen</li></a>
                 <hr>
-                <a href="/konto/logout?redir=<%- url %>"><li>Abmelden</li></a>
+                <a href="/konto/logout?redir=<%= url %>"><li>Abmelden</li></a>
             </ul>
         </div>
     <% } %>
